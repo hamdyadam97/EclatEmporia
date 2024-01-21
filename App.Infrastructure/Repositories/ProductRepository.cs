@@ -11,12 +11,13 @@ namespace App.Infrastructure.Repositories
 {
 	public class ProductRepository : Repository<Product>, IProductRepository
 	{
-		public ProductRepository(StoreContext dbContext) : base(dbContext) { }
+        StoreContext context;
+        public ProductRepository(StoreContext dbContext) : base(dbContext) { }
 
-		public List<Product> SearchByTitle(string name)
+		public IQueryable<Product> GetProductByName(string name)
 		{
-			throw new NotImplementedException();
-		}
+            return context.Products.Where(x => x.ProductName.Contains(name)).AsQueryable();
+        }
 
 	}
 }
