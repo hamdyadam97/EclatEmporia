@@ -90,6 +90,7 @@ namespace App_EclatEmporiaPresentation
             product.CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue);
             product.Price = Convert.ToDecimal(txtPrice.Text);
             product.Description = txtDescription.Text;
+            product.StockQuantity = Convert.ToInt16((int)numericUpDownStockQuantity.Value);
 
             _productService.UpdateProduct(product);
             MessageBox.Show("Product updated successfully.");
