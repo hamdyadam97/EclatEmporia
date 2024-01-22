@@ -31,10 +31,10 @@ namespace App.Infrastructure.Repositories
             return  context.Products.Where(x => x.ProductName.Contains(Name)).AsQueryable();  
         }
 
-        public IQueryable<Product> GetProducts()
-        {
-            return context.Products.Select(x => x);
-        }
+        //public IQueryable<Product> GetProducts()
+        //{
+        //    return context.Products.Select(x => x);
+        //}
 
         public IQueryable<Product> GetProductsByCat(string category)
         {
