@@ -138,6 +138,7 @@
 			Controls.Add(textBox1);
 			Name = "AddCategoryProduct";
 			Text = "AddCategory";
+			Load += AddCategoryProduct_Load;
 			((System.ComponentModel.ISupportInitialize)dataGridViewCateg).EndInit();
 			ResumeLayout(false);
 			PerformLayout();

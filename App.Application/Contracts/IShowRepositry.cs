@@ -9,7 +9,7 @@ namespace App.Application.Contracts
 {
     public interface IShowRepositry
     {
-        public IQueryable<Product> GetProducts();
+        //public IQueryable<Product> GetProducts();
         public IQueryable<Category> GetCategories();
         public IQueryable<Product> GetProductByName(string Name);
         public void AddOrder (Order order);

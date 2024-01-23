@@ -16,130 +16,266 @@ using System.Windows.Forms;
 
 namespace App_EclatEmporiaPresentation
 {
-    public partial class Add_Product : Form
-    {
-        Product masterProduct = new Product();
-        private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
+	public partial class Add_Product : Form
+	{
 
-        public Add_Product()
-        {
-            InitializeComponent();
-            var container = DependencyConfig.Configure();
-            _categoryService = container.Resolve<ICategoryService>();
-            _productService = container.Resolve<IProductService>();
-            _categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
-            _productService = new ProductService(new ProductRepository(new StoreContext()));
-            //         _productService = productService;
-            //_categoryService = categoryService;
-        }
+		private readonly IProductService _productService;
+		private readonly ICategoryService _categoryService;
 
-        private void Add_Product_Load(object sender, EventArgs e)
-        {
-            LoadCategories();
-            GetProducts();
-        }
-        private void LoadCategories()
-        {
-            var categories = _categoryService.GetAllCategories();
+		public Add_Product()
+		{
+			InitializeComponent();
+			var container = DependencyConfig.Configure();
+			_categoryService = container.Resolve<ICategoryService>();
+			_productService = container.Resolve<IProductService>();
+			_categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
+			_productService = new ProductService(new ProductRepository(new StoreContext()));
+
+		}
+
+		private void Add_Product_Load(object sender, EventArgs e)
+		{
+			LoadCategories();
+			GetProducts();
 
 
-            comboBoxCategories.DataSource = categories.ToList();
-            comboBoxCategories.DisplayMember = "CategoryName";
-            comboBoxCategories.ValueMember = "CategoryID";
-        }
-        private void btnaAddProduct_Click(object sender, EventArgs e)
-        {
+		}
+		private void LoadCategories()
+		{
+			var categories = _categoryService.GetAllCategories();
+			comboBoxCategories.DataSource = categories.ToList();
+			comboBoxCategories.DisplayMember = "CategoryName";
+			comboBoxCategories.ValueMember = "CategoryID";
 
-            var product = new Product
-            {
-                ProductName = txtProductName.Text,
-                Description = txtDescription.Text,
-                Price = Convert.ToDecimal(txtPrice.Text),
-                StockQuantity = (int)numericUpDownStockQuantity.Value,
-                DateAdded = DateTime.Now,
-                CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue)
-            };
+		}
+		private void btnaAddProduct_Click(object sender, EventArgs e)
+		{
 
-            _productService.AddProduct(product);
-            MessageBox.Show("Product added successfully.");
-            GetProducts();
-        }
-        private void GetProducts()
-        {
-            //dataGridViewCateg.AutoGenerateColumns = true;
-            //dataGridViewCateg.DataSource = _categoryService.GetAllCategories().ToList();
-            var products = _productService.GetAllProducts();
+			if (string.IsNullOrWhiteSpace(txtProductName.Text))
+			{
+				MessageBox.Show("Please enter a product name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
 
-            dataGridViewProduct.DataSource = products;
-        }
-        private void comboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
-        {
+			if (string.IsNullOrWhiteSpace(txtDescription.Text))
+			{
+				MessageBox.Show("Please enter a product description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
 
-        }
+			decimal price;
+			if (!decimal.TryParse(txtPrice.Text, out price) || price < 0)
+			{
+				MessageBox.Show("Please enter a valid positive price.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
 
-        private void BtnUpdateProduct_Click(object sender, EventArgs e)
-        {
-            int selectedRow = dataGridViewProduct.SelectedRows[0].Index;
-            int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
+			int stockQuantity;
+			if (!int.TryParse(numericUpDownStockQuantity.Value.ToString(), out stockQuantity) || stockQuantity < 0)
+			{
+				MessageBox.Show("Please enter a valid positive stock quantity.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			var product = new Product
+			{
+				ProductName = txtProductName.Text,
+				Description = txtDescription.Text,
+				Price = price,
+				StockQuantity = stockQuantity,
+				DateAdded = DateTime.Now,
+				//CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue)
+				CategoryID = comboBoxCategories.SelectedValue != null
+					? Convert.ToInt32(comboBoxCategories.SelectedValue)
+					: 0
+			};
 
-            var product = _productService.GetProductById(productId);
+			_productService.AddProduct(product);
+
+			MessageBox.Show("Product added successfully.");
+			GetProducts();
+			ResetForm();
+		}
+		private void GetProducts()
+		{
+			//var products = _productService.GetAllProducts();
+
+			//dataGridViewProduct.DataSource = products;
+
+			var products = _productService.GetAllProducts();
+			var productData = products.Select(p => new
+			{
+				p.ProductID,
+				p.ProductName,
+				p.Description,
+				p.Price,
+				p.StockQuantity,
+				p.DateAdded,
+				CategoryName = p.Category != null ? p.Category.CategoryName : string.Empty
+			}).ToList();
+
+			dataGridViewProduct.DataSource = productData;
 
 
-            product.ProductName = txtProductName.Text;
-            product.CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue);
-            product.Price = Convert.ToDecimal(txtPrice.Text);
-            product.Description = txtDescription.Text;
-            product.StockQuantity = Convert.ToInt16((int)numericUpDownStockQuantity.Value);
 
-            _productService.UpdateProduct(product);
-            MessageBox.Show("Product updated successfully.");
+            //product.ProductName = txtProductName.Text;
+            //product.CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue);
+            //product.Price = Convert.ToDecimal(txtPrice.Text);
+            //product.Description = txtDescription.Text;
+            //product.StockQuantity = Convert.ToInt16((int)numericUpDownStockQuantity.Value);
 
-            GetProducts();
-
-        }
-
-        private void BtnDeleteProduct_Click(object sender, EventArgs e)
-        {
-            var selectedRow = dataGridViewProduct.SelectedRows[0];
-            var productId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-
-            _productService.DeleteProduct(productId);
-            MessageBox.Show("Product deleted successfully.");
+		}
+		private void comboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
+		{
 
 
-            GetProducts();
-        }
+		}
 
-        private void dataGridViewProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                var selectedRow = dataGridViewProduct.Rows[e.RowIndex];
-                var productId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
+		private void BtnUpdateProduct_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// Validate Product Name
+				if (string.IsNullOrWhiteSpace(txtProductName.Text))
+				{
+					MessageBox.Show("Please enter a valid product name.");
+					return;
+				}
 
-                var product = _productService.GetProductById(productId);
+				// Validate Category
+				if (comboBoxCategories.SelectedItem == null)
+				{
+					MessageBox.Show("Please select a valid category.");
+					return;
+				}
 
-                txtProductName.Text = product.ProductName;
-                comboBoxCategories.SelectedValue = product.CategoryID;
-                txtPrice.Text = product.Price.ToString();
-                txtDescription.Text = product.Description;
-            }
-        }
+				// Validate Price
+				decimal price;
+				if (!decimal.TryParse(txtPrice.Text, out price) || price < 0)
+				{
+					MessageBox.Show("Please enter a valid positive price.");
+					return;
+				}
 
-        private void dataGridViewProduct_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //var selectedRow = dataGridViewProduct.Rows[e.RowIndex];
-            //var productId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-            int selectedRow = dataGridViewProduct.SelectedRows[0].Index;
-            int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
-            var product = _productService.GetProductById(productId);
+				// All validation passed, proceed to update the product
+				var selectedRow = dataGridViewProduct.SelectedRows[0].Index;
+				int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
 
-            txtProductName.Text = product.ProductName;
-            comboBoxCategories.SelectedValue = product.CategoryID;
-            txtPrice.Text = product.Price.ToString();
-            txtDescription.Text = product.Description;
+				var product = _productService.GetProductById(productId);
 
-        }
-    }
+				product.ProductName = txtProductName.Text;
+				product.CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue);
+				product.Price = price;
+				product.Description = txtDescription.Text;
+
+				//numericUpDownStockQuantity.Value = Convert.ToInt32(product.StockQuantity);
+				product.StockQuantity = Convert.ToInt32(numericUpDownStockQuantity.Value);
+				_productService.UpdateProduct(product);
+				MessageBox.Show("Product updated successfully.");
+
+				GetProducts();
+				ResetForm();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An error occurred: {ex.Message}");
+			}
+
+		}
+
+		private void BtnDeleteProduct_Click(object sender, EventArgs e)
+		{
+
+
+			try
+			{
+				// Check if a row is selected
+				if (dataGridViewProduct.SelectedRows.Count == 0)
+				{
+					MessageBox.Show("Please select a product to delete.");
+					return;
+				}
+				DialogResult result = MessageBox.Show("Are you sure you want to delete this product?", "Confirmation", MessageBoxButtons.YesNo);
+				if (result == DialogResult.No)
+				{
+					return;
+				}
+
+				var selectedRow = dataGridViewProduct.SelectedRows[0].Index;
+				int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
+				_productService.DeleteProduct(productId);
+				MessageBox.Show("Product deleted successfully.");
+
+				GetProducts();
+				ResetForm();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An error occurred: {ex.Message}");
+			}
+		}
+
+		private void dataGridViewProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (dataGridViewProduct.SelectedRows.Count == 0)
+			{
+				MessageBox.Show("Please select a row.");
+				return;
+			}
+
+			int selectedRow = dataGridViewProduct.SelectedRows[0].Index;
+
+			if (selectedRow >= 0 && selectedRow < dataGridViewProduct.Rows.Count)
+			{
+				int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
+				var product = _productService.GetProductById(productId);
+
+				txtProductName.Text = product.ProductName;
+				comboBoxCategories.SelectedValue = product.CategoryID;
+				//comboBoxCategories.SelectedValue = product.Category.CategoryName;
+				txtPrice.Text = product.Price.ToString();
+				txtDescription.Text = product.Description;
+				numericUpDownStockQuantity.Value = Convert.ToInt32(product.StockQuantity);
+			}
+
+
+		}
+
+		private void dataGridViewProduct_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			if (dataGridViewProduct.SelectedRows.Count == 0)
+			{
+				MessageBox.Show("Please select one row.");
+				return;
+			}
+
+			int selectedRow = dataGridViewProduct.SelectedRows[0].Index;
+
+			if (selectedRow >= 0 && selectedRow < dataGridViewProduct.Rows.Count)
+			{
+				int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
+				var product = _productService.GetProductById(productId);
+
+
+				txtProductName.Text = product.ProductName;
+				comboBoxCategories.SelectedValue = product.CategoryID;
+				//comboBoxCategories.SelectedValue = product.Category.CategoryName;
+				txtPrice.Text = product.Price.ToString();
+				txtDescription.Text = product.Description;
+				numericUpDownStockQuantity.Value = Convert.ToInt32(product.StockQuantity);
+			}
+		}
+
+		//Reset Fuction
+		private void ResetForm()
+		{
+			txtProductName.Text = string.Empty;
+			txtDescription.Text = string.Empty;
+			txtPrice.Text = string.Empty;
+			numericUpDownStockQuantity.Value = 0;
+			comboBoxCategories.SelectedIndex = -1;
+
+		}
+
+
+	}
 }

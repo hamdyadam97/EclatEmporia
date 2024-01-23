@@ -12,7 +12,7 @@ namespace App.Context
 {
 	public class StoreContext :DbContext
 	{
-
+		
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Data Source=DESKTOP-3HHLPJ7\\SQLEXPRESS;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");

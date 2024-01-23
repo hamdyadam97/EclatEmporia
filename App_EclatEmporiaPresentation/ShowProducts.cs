@@ -8,16 +8,16 @@ namespace App_EclatEmporiaPresentation
 {
     public partial class ShowProducts : Form
     {
-        //ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
+        ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         ProductService productService = new ProductService(new ProductRepository(new StoreContext()));
-        CategoryService categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
+        //CategoryService categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
         public ShowProducts()
         {
             InitializeComponent();
 
 
-            //var result = showProductService.GetCategories();
-            var result = categoryService.GetAllCategories();
+            var result = showProductService.GetCategories();
+            //var result = categoryService.GetAllCategories();
 
             foreach (var category in result)
             {
@@ -37,7 +37,7 @@ namespace App_EclatEmporiaPresentation
 
         private void ShowProducts_Load(object sender, EventArgs e)
         {
-            var Products = productService.GetAllProducts();
+            var Products = productService.GetProducts();
             foreach (var Product in Products)
             {
                 listView1.Items.Add(Product.ProductID.ToString());
@@ -49,22 +49,22 @@ namespace App_EclatEmporiaPresentation
             }
         }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            var productList = await productService.GetProductByName(textBox1.Text).ToListAsync();
+        //private async void button1_Click(object sender, EventArgs e)
+        //{
+        //    var productList = await showProductService.GetProductByName(textBox1.Text).ToListAsync();
 
-            listView1.Items.Clear();
+        //    listView1.Items.Clear();
 
-            foreach (var Product in productList)
-            {
-                listView1.Items.Add(Product.ProductID.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Price.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
-            }
-        }
+        //    foreach (var Product in productList)
+        //    {
+        //        listView1.Items.Add(Product.ProductID.ToString());
+        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
+        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
+        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Price.ToString());
+        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
+        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
+        //    }
+        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -75,23 +75,23 @@ namespace App_EclatEmporiaPresentation
                 var productStringId = selectedProduct.Text;
                 var productId = Convert.ToInt32(productStringId);
 
-                //productService.AddOrder(new Order()
-                //{
-                //    TotalAmount = 1,
-                //    OrderDate = DateTime.Now,
-                //    UserID = 1,
-                //    OrderStatus = "Waiting",
-                //    ShippingAddress = "Hurgada",
-                //    PaymentMethod = "cash",
-                //    OrderProducts = new List<ProductOrder>()
-                //    {
-                //        new ProductOrder()
-                //        {
-                //            OrderID = 1,
-                //            ProductID = productId
-                //        }
-                //    }
-                //});
+                showProductService.AddOrder(new Order()
+                {
+                    TotalAmount = 1,
+                    OrderDate = DateTime.Now,
+                    UserID = 1,
+                    OrderStatus = "Waiting",
+                    ShippingAddress = "Hurgada",
+                    PaymentMethod = "cash",
+                    OrderProducts = new List<ProductOrder>()
+                    {
+                        new ProductOrder()
+                        {
+                            OrderID = 1,
+                            ProductID = productId
+                        }
+                    }
+                });
 
 
                 MessageBox.Show("The Product Added Successfully");
@@ -110,19 +110,38 @@ namespace App_EclatEmporiaPresentation
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //listView1.Items.Clear();
-            //if (comboBox1.SelectedItem == null) return;
-            //var productcat = productService.GetProductsByCat(comboBox1.SelectedItem.ToString());
-            //foreach( var item in productcat)
-            //{
-            //    listView1.Items.Add(item.ProductID.ToString());
-            //    listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.ProductName);
-            //    listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.Description);
-            //    listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.Price.ToString());
-            //    listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.StockQuantity.ToString());
-            //    listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.DateAdded.ToString());
-            //}
+            listView1.Items.Clear();
+            if (comboBox1.SelectedItem == null) return;
+            var productcat = showProductService.GetProductsByCat(comboBox1.SelectedItem.ToString());
+            foreach (var item in productcat)
+            {
+                listView1.Items.Add(item.ProductID.ToString());
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.ProductName);
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.Description);
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.Price.ToString());
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.StockQuantity.ToString());
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(item.DateAdded.ToString());
+            }
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            var productList = showProductService.GetProductByName(textBox1.Text);
+
+            listView1.Items.Clear();
+
+            foreach (var Product in productList)
+            {
+                listView1.Items.Add(Product.ProductID.ToString());
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Price.ToString());
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
+            }
+        }
+
+
     }
 }
