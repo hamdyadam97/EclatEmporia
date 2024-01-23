@@ -15,15 +15,13 @@ namespace App_EclatEmporiaPresentation
 {
     public partial class TraceProduct : Form
     {
-        OrderService orderService = new OrderService(new ProductRepository(new StoreContext()));
+        //OrderService orderService = new OrderService(new ProductRepository(new StoreContext()));
         public TraceProduct()
         {
             InitializeComponent();
         }
 
-        
-
-        private void TraceProduct_Load(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
