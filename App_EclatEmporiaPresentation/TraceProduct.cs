@@ -15,7 +15,7 @@ namespace App_EclatEmporiaPresentation
 {
     public partial class TraceProduct : Form
     {
-        OrderService orderService = new OrderService(new ProductRepository(new StoreContext()));
+        //OrderService orderService = new OrderService(new ProductRepository(new StoreContext()));
         public TraceProduct()
         {
             InitializeComponent();
