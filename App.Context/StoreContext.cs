@@ -13,9 +13,9 @@ namespace App.Context
 	public class StoreContext :DbContext
 	{
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Data Source=DESKTOP-3HHLPJ7\\SQLEXPRESS;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-H2HR40I;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 		}
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
