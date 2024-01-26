@@ -155,15 +155,7 @@ namespace App_EclatEmporiaPresentation
 
 		}
 
-		private void ShowBtnCateg_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void AddCategoryProduct_Load(object sender, EventArgs e)
-		{
-
-		}
+		
 	}
 
 }

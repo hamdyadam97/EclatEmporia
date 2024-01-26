@@ -20,6 +20,11 @@ namespace App_EclatEmporiaPresentation
     public partial class Register : Form
     {
         private readonly UserService _userService;
+        public bool ValidatePasswordMatch(User user)
+        {
+            // Check if ConfirmPassword matches Password
+            return user.Password == user.ConfirmPassword;
+        }
         public Register()
         {
       
@@ -34,6 +39,8 @@ namespace App_EclatEmporiaPresentation
         {
             try
             {
+
+               
                 var newUser = new User
                 {
                     Username = UserName.Text,
@@ -46,7 +53,11 @@ namespace App_EclatEmporiaPresentation
                     Role = DetermineUserRole(comboBox1.Text),
                     RegistrationDate = DateTime.Now
                 };
-
+                bool _MathPassword = ValidatePasswordMatch(newUser);
+                if (!_MathPassword)
+                {
+                    MessageBox.Show("Password and Confirm must be match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 _userService.Add(newUser);
 
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

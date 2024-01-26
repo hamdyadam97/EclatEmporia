@@ -120,8 +120,7 @@
 			ShowBtnCateg.TabIndex = 9;
 			ShowBtnCateg.Text = "ShowData";
 			ShowBtnCateg.UseVisualStyleBackColor = true;
-			ShowBtnCateg.Click += ShowBtnCateg_Click;
-			// 
+			
 			// AddCategoryProduct
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -138,7 +137,7 @@
 			Controls.Add(textBox1);
 			Name = "AddCategoryProduct";
 			Text = "AddCategory";
-			Load += AddCategoryProduct_Load;
+			
 			((System.ComponentModel.ISupportInitialize)dataGridViewCateg).EndInit();
 			ResumeLayout(false);
 			PerformLayout();

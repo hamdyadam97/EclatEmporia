@@ -12,10 +12,18 @@ namespace App.Context
 {
 	public class StoreContext :DbContext
 	{
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Data Source=DESKTOP-H2HR40I;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+			optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+=========
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-H2HR40I;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+>>>>>>>>> Temporary merge branch 2
+			optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+=========
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-H2HR40I;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+>>>>>>>>> Temporary merge branch 2
 		}
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

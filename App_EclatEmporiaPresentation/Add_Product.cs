@@ -116,9 +116,17 @@ namespace App_EclatEmporiaPresentation
 			dataGridViewProduct.DataSource = productData;
 
 
+
+            //product.ProductName = txtProductName.Text;
+            //product.CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue);
+            //product.Price = Convert.ToDecimal(txtPrice.Text);
+            //product.Description = txtDescription.Text;
+            //product.StockQuantity = Convert.ToInt16((int)numericUpDownStockQuantity.Value);
+
 		}
 		private void comboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
 		{
+
 
 		}
 
