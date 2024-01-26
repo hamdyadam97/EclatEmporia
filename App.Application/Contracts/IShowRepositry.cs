@@ -12,8 +12,12 @@ namespace App.Application.Contracts
         //public IQueryable<Product> GetProducts();
         public IQueryable<Category> GetCategories();
         public IQueryable<Product> GetProductByName(string Name);
-        public void AddOrder (Order order);
+        //public void AddCart(CartProducts cartProducts);
         public IQueryable<Product> GetProductsByCat(string category);
+        public bool check(int productid , int categoryid);
+        public int usercartid(int userid);
+        public void updateQuantity(int Productid);
+        //public int GetCart(int userID);
         public int Save();
     }
 }

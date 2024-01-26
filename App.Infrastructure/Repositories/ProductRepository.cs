@@ -33,5 +33,12 @@ namespace App.Infrastructure.Repositories
             return context.Products.Select(x => x);
         }
 
+        public void updateQuantity(int Productid)
+        {
+           var product = context.Products.FirstOrDefault(p => p.ProductID == Productid);
+            product.StockQuantity -= 1;
+
+            context.SaveChanges();
+        }
     }
 }
