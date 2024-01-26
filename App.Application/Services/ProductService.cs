@@ -45,6 +45,12 @@ namespace App.Application.Services
         {
             return _productRepository.GetProducts();
         }
+
+        public void updateQuantity(int Productid)
+        {
+            _productRepository.updateQuantity(Productid);
+        }
+
         //public IQueryable<Product> GetProductByName(string Name)
         //{
         //    return _productRepository.GetProductByName(Name);

@@ -11,5 +11,7 @@ namespace App.Application.Contracts
 	{
 		//public IQueryable<Product> GetProductByName(string name);
         public IQueryable<Product> GetProducts();
+		public void updateQuantity(int Productid);
+
     }
 }

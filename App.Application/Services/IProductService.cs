@@ -15,6 +15,8 @@ namespace App.Application.Services
 		void UpdateProduct(Product product);
 		void DeleteProduct(int id);
         public IQueryable<Product> GetProducts();
+        public void updateQuantity(int Productid);
+
         //public IQueryable<Product> GetProductByName(string Name);
         //List<Product> GetAllPagination(int Num, int Prd);
 

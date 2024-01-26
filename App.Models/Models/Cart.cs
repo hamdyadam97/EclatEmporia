@@ -17,7 +17,7 @@ namespace App.Models.Models
 		public User User { get; set; }
 
 		
-	
+	    public ICollection<CartProducts> Products { get; set; }
 	}
 
 	
