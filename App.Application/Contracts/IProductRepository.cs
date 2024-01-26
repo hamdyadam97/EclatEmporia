@@ -9,6 +9,7 @@ namespace App.Application.Contracts
 {
 	public interface IProductRepository : IRepository<Product>
 	{
-		public IQueryable<Product> GetProductByName(string name);
-	}
+		//public IQueryable<Product> GetProductByName(string name);
+        public IQueryable<Product> GetProducts();
+    }
 }

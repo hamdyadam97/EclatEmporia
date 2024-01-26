@@ -32,10 +32,10 @@ namespace App.Application.Services
             return _IShowRepositry.GetProductByName(Name);
         }
 
-        public IQueryable<Product> GetProducts()
-        {
-            return _IShowRepositry.GetProducts();
-        }
+        //public IQueryable<Product> GetProducts()
+        //{
+        //    return _IShowRepositry.GetProducts();
+        //}
 
         public IQueryable<Product> GetProductsByCat(string category)
         {
