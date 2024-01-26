@@ -16,7 +16,13 @@ namespace App.Infrastructure.Repositories
         {
             context = storeContext;
         }
-        public void AddCart(CartProducts cartProducts)
+
+        public void AddCart(Cart cart)
+        {
+            context.Carts.Add(cart);
+        }
+
+        public void AddCartProduct(CartProducts cartProducts)
         {
             context.CartProducts.Add(cartProducts);
         }
@@ -31,6 +37,11 @@ namespace App.Infrastructure.Repositories
         public int Save()
         {
             return (int)context.SaveChanges();
+        }
+
+        public bool SearchCart(int userID)
+        {
+            return context.Carts.Any(x => x.UserID == userID);
         }
     }
 }

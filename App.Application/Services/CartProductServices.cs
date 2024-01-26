@@ -15,12 +15,19 @@ namespace App.Application.Services
         {
             _ICartRepositry = ICartRepositry;
         }
-        public void AddCart(CartProducts cartProducts)
+
+        public void AddCart(Cart cart)
         {
-            _ICartRepositry.AddCart(cartProducts);
+            _ICartRepositry.AddCart(cart);
             _ICartRepositry.Save();
         }
 
+        public void AddCartProduct(CartProducts cartProducts)
+        {
+            _ICartRepositry.AddCartProduct(cartProducts);
+            _ICartRepositry.Save();
+        }
+        
         public int GetCart(int userID)
         {
             return _ICartRepositry.GetCart(userID);
@@ -30,5 +37,9 @@ namespace App.Application.Services
             return _ICartRepositry.Save();
         }
 
+        public bool SearchCart(int userID)
+        {
+            return _ICartRepositry.SearchCart(userID);
+        }
     }
 }

@@ -86,23 +86,49 @@ namespace App_EclatEmporiaPresentation
                 //var c = product[0].Tag as Product;
                 if (QuantityProductInt != 0)
                 {
-                    if (showProductService.check(productId, showProductService.usercartid(3)))
+                    if (showProductService.check(productId, showProductService.usercartid(5)))
                     {
                         productService.updateQuantity(productId);
                         showProductService.updateQuantity(productId);
                     }
                     else
                     {
-                        CartProductServices.AddCart(new CartProducts()
+                       if(CartProductServices.SearchCart(5))
                         {
-                            ProductID = productId,
-                            CartID = showProductService.usercartid(3)
-                        });
+                            CartProductServices.AddCartProduct(new CartProducts()
+                            {
+                                ProductID = productId,
+                                CartID = showProductService.usercartid(5)
+
+                            });
+                            productService.updateQuantity(productId);
+                            showProductService.updateQuantity(productId);
+                        }
+                        else
+                        {
+                            CartProductServices.AddCart(new Cart() { UserID = 5});
+                            CartProductServices.AddCartProduct(new CartProducts()
+                            {
+                                ProductID = productId,
+                                CartID = showProductService.usercartid(5)
+
+                            });
+                            productService.updateQuantity(productId);
+                            showProductService.updateQuantity(productId);
+                        }
+                        //CartProductServices.AddCartProduct(new CartProducts()
+                        //{
+                        //    ProductID = productId,
+                        //    CartID = showProductService.usercartid(4)
+
+                        //});
+                        //productService.updateQuantity(productId);
                     }
                 }
                 else
                 {
                     MessageBox.Show("Out of Stock");
+
                 }
 
                 //CartProductServices.AddCart(new CartProducts()
@@ -111,7 +137,7 @@ namespace App_EclatEmporiaPresentation
                 //   CartID = 1
                 //});
 
-                textBox5.Text = CartProductServices.GetCart(1).ToString();
+                textBox5.Text = CartProductServices.GetCart(4).ToString();
                 MessageBox.Show("The Product Added Successfully");
             }
             else
