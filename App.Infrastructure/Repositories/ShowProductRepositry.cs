@@ -1,6 +1,8 @@
 ﻿using App.Application.Contracts;
 using App.Context;
+using App.Context.Migrations;
 using App.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,26 @@ namespace App.Infrastructure.Repositories
         {
             context = storeContext;
         }
-        public void AddOrder(Order order)
+
+        public bool check(int productid, int categoryid)
         {
-           context.Orders.Add(order);
+            bool exists = context.CartProducts.Any(pc => pc.ProductID == productid && pc.CartID == categoryid);
+            return exists;
         }
+
+        //public void AddCart(CartProducts cartProducts)
+        //{
+        //    context.CartProducts.Add(cartProducts);
+        //}
+
+        //public int GetCart(int userID)
+        //{
+        //    var result = from x in context.CartProducts
+        //                 join s in context.Carts on x.CartID equals s.ShoppingCartID
+        //                 where s.UserID == userID
+        //                 select x.ProductID;
+        //    return result.Count();
+        //}
 
         public IQueryable<Category> GetCategories()
         {
@@ -28,7 +46,7 @@ namespace App.Infrastructure.Repositories
 
         public IQueryable<Product> GetProductByName( string Name)
         {
-            return  context.Products.Where(x => x.ProductName.Contains(Name)).AsQueryable();  
+            return context.Products.Where(x => x.ProductName.Contains(Name)).AsQueryable();  
         }
 
         //public IQueryable<Product> GetProducts()
@@ -48,6 +66,19 @@ namespace App.Infrastructure.Repositories
         public int Save()
         {
             return (int)context.SaveChanges();
+        }
+
+        public void updateQuantity(int Productid)
+        {
+            var product = context.CartProducts.FirstOrDefault(p => p.ProductID == Productid);
+            product.Quantity += 1;
+
+            context.SaveChanges();
+        }
+
+        public int usercartid(int userid)
+        {
+            return context.Carts.Where(c => c.UserID == userid).Select(c => c.ShoppingCartID).FirstOrDefault();
         }
     }
 }

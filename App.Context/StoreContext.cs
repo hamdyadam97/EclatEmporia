@@ -75,8 +75,24 @@ namespace App.Context
 				.WithOne(u => u.Cart)
 				.HasForeignKey<Cart>(c => c.UserID);
 
+            modelBuilder.Entity<CartProducts>()
+           .HasKey(po => new { po.ProductID, po.CartID });
 
-			base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CartProducts>()
+                .HasOne(po => po.Product)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(po => po.ProductID);
+
+            modelBuilder.Entity<CartProducts>()
+                .HasOne(po => po.Cart)
+                .WithMany(o => o.Products)
+                .HasForeignKey(po => po.CartID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
+
+            base.OnModelCreating(modelBuilder);
 		}
 		public virtual DbSet<Product> Products { get; set; }
 		public virtual DbSet<User> Users { get; set; }
@@ -84,5 +100,6 @@ namespace App.Context
 		public virtual DbSet<Category> Categorys { get; set; }
 		public virtual DbSet<Cart> Carts { get; set; }
 		public DbSet<ProductOrder> ProductOrders { get; set; }
+		public DbSet<CartProducts> CartProducts { get; set; }
 	}
 }

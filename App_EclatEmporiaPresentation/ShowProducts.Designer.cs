@@ -49,6 +49,8 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            label6 = new Label();
+            textBox5 = new TextBox();
             SuspendLayout();
             // 
             // listView1
@@ -109,13 +111,14 @@
             // 
             // button2
             // 
+            button2.BackColor = SystemColors.Control;
             button2.Location = new Point(196, 554);
             button2.Margin = new Padding(4, 3, 4, 3);
             button2.Name = "button2";
             button2.Size = new Size(129, 29);
             button2.TabIndex = 3;
             button2.Text = "Add";
-            button2.UseVisualStyleBackColor = true;
+            button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
             // button3
@@ -212,6 +215,23 @@
             label5.TabIndex = 13;
             label5.Text = "Choose The Category";
             // 
+            // label6
+            // 
+            label6.BackColor = Color.Transparent;
+            label6.Location = new Point(1022, 130);
+            label6.Name = "label6";
+            label6.Size = new Size(107, 28);
+            label6.TabIndex = 14;
+            label6.Text = "The Cart";
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(1145, 127);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(125, 30);
+            textBox5.TabIndex = 15;
+            textBox5.TextChanged += textBox5_TextChanged;
+            // 
             // ShowProducts
             // 
             AutoScaleDimensions = new SizeF(11F, 20F);
@@ -220,6 +240,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1433, 612);
+            Controls.Add(textBox5);
+            Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -264,5 +286,7 @@
         private ColumnHeader columnHeader6;
         private Label label4;
         private Label label5;
+        private Label label6;
+        private TextBox textBox5;
     }
 }
