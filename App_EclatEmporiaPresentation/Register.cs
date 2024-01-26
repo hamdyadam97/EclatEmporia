@@ -57,6 +57,7 @@ namespace App_EclatEmporiaPresentation
                 if (!_MathPassword)
                 {
                     MessageBox.Show("Password and Confirm must be match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
                 _userService.Add(newUser);
 
@@ -67,17 +68,20 @@ namespace App_EclatEmporiaPresentation
                 {                
                     Add_Product AddProduct = new Add_Product();
                     AddProduct.Show();
+                   
                 }
                 else 
                 {               
                     ShowProducts ShowProducts = new ShowProducts();
                     ShowProducts.Show();
+                    
                 }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
             }
 
         }

@@ -15,7 +15,7 @@ namespace App.Context
 		
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Data Source=DESKTOP-QP853AU\\ITI;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-3HHLPJ7\\SQLEXPRESS;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 		}
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
