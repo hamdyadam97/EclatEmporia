@@ -125,7 +125,7 @@ namespace App_EclatEmporiaPresentation
 			}
 			catch (Exception ex)
 			{
-				// Handle any exceptions that occur during the update process
+				
 				MessageBox.Show($"Error updating category: {ex.Message}", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
