@@ -22,6 +22,7 @@ namespace App_EclatEmporiaPresentation
 		private readonly IProductService _productService;
 		private readonly ICategoryService _categoryService;
 
+		private byte[] selectedImageBytes;
 		public Add_Product()
 		{
 			InitializeComponent();
@@ -31,13 +32,15 @@ namespace App_EclatEmporiaPresentation
 			_categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
 			_productService = new ProductService(new ProductRepository(new StoreContext()));
 
+			textBox1.TextChanged += textBox1_TextChanged;
+
 		}
 
 		private void Add_Product_Load(object sender, EventArgs e)
 		{
 			LoadCategories();
 			GetProducts();
-
+			ResetForm();
 
 		}
 		private void LoadCategories()
@@ -53,40 +56,27 @@ namespace App_EclatEmporiaPresentation
 
 			if (string.IsNullOrWhiteSpace(txtProductName.Text))
 			{
-				MessageBox.Show("Please enter a product name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please enter a productName.");
 				return;
 			}
 
 			if (string.IsNullOrWhiteSpace(txtDescription.Text))
 			{
-				MessageBox.Show("Please enter a product description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please enter a product description");
 				return;
 			}
 
-			decimal price;
-			if (!decimal.TryParse(txtPrice.Text, out price) || price < 0)
-			{
-				MessageBox.Show("Please enter a valid positive price.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-
-			int stockQuantity;
-			if (!int.TryParse(numericUpDownStockQuantity.Value.ToString(), out stockQuantity) || stockQuantity < 0)
-			{
-				MessageBox.Show("Please enter a valid positive stock quantity.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
 			var product = new Product
 			{
 				ProductName = txtProductName.Text,
 				Description = txtDescription.Text,
-				Price = price,
-				StockQuantity = stockQuantity,
+				Price = Convert.ToDecimal(txtPrice.Text),
+				StockQuantity = Convert.ToInt32(numericUpDownStockQuantity.Value),
 				DateAdded = DateTime.Now,
-				//CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue)
 				CategoryID = comboBoxCategories.SelectedValue != null
-					? Convert.ToInt32(comboBoxCategories.SelectedValue)
-					: 0
+				? Convert.ToInt32(comboBoxCategories.SelectedValue)
+				: 0,
+				Image = selectedImageBytes
 			};
 
 			_productService.AddProduct(product);
@@ -97,11 +87,9 @@ namespace App_EclatEmporiaPresentation
 		}
 		private void GetProducts()
 		{
-			//var products = _productService.GetAllProducts();
 
-			//dataGridViewProduct.DataSource = products;
+			var products = _productService.GetAllProductsWithIncludes();
 
-			var products = _productService.GetAllProducts();
 			var productData = products.Select(p => new
 			{
 				p.ProductID,
@@ -110,13 +98,20 @@ namespace App_EclatEmporiaPresentation
 				p.Price,
 				p.StockQuantity,
 				p.DateAdded,
-				CategoryName = p.Category != null ? p.Category.CategoryName : string.Empty
+				//p.Category.CategoryName = p.Category != null ? p.Category.CategoryName : string.Empty,
+                CategoryName = p.Category != null ? p.Category.CategoryName : string.Empty,
+				Image = p.Image
 			}).ToList();
-
 			dataGridViewProduct.DataSource = productData;
+			if (!dataGridViewProduct.Columns.Contains("Image"))
+			{
+				DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
+				imageColumn.HeaderText = "Image";
+				imageColumn.Name = "Image";
+				dataGridViewProduct.Columns.Add(imageColumn);
+			}
 
-
-		}
+			}
 		private void comboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
 		{
 
@@ -126,29 +121,23 @@ namespace App_EclatEmporiaPresentation
 		{
 			try
 			{
-				// Validate Product Name
+				
 				if (string.IsNullOrWhiteSpace(txtProductName.Text))
 				{
-					MessageBox.Show("Please enter a valid product name.");
+					MessageBox.Show("Please enter a  productName");
 					return;
 				}
 
-				// Validate Category
+			
 				if (comboBoxCategories.SelectedItem == null)
 				{
-					MessageBox.Show("Please select a valid category.");
+					MessageBox.Show("Please select a category");
 					return;
 				}
 
-				// Validate Price
-				decimal price;
-				if (!decimal.TryParse(txtPrice.Text, out price) || price < 0)
-				{
-					MessageBox.Show("Please enter a valid positive price.");
-					return;
-				}
+				
 
-				// All validation passed, proceed to update the product
+
 				var selectedRow = dataGridViewProduct.SelectedRows[0].Index;
 				int productId = Convert.ToInt32(dataGridViewProduct.Rows[selectedRow].Cells["ProductId"].Value);
 
@@ -156,11 +145,10 @@ namespace App_EclatEmporiaPresentation
 
 				product.ProductName = txtProductName.Text;
 				product.CategoryID = Convert.ToInt32(comboBoxCategories.SelectedValue);
-				product.Price = price;
+				product.Price = Convert.ToDecimal(txtPrice.Text);
 				product.Description = txtDescription.Text;
-
-				//numericUpDownStockQuantity.Value = Convert.ToInt32(product.StockQuantity);
 				product.StockQuantity = Convert.ToInt32(numericUpDownStockQuantity.Value);
+				product.Image = selectedImageBytes;
 				_productService.UpdateProduct(product);
 				MessageBox.Show("Product updated successfully.");
 
@@ -180,7 +168,7 @@ namespace App_EclatEmporiaPresentation
 
 			try
 			{
-				// Check if a row is selected
+				
 				if (dataGridViewProduct.SelectedRows.Count == 0)
 				{
 					MessageBox.Show("Please select a product to delete.");
@@ -223,7 +211,6 @@ namespace App_EclatEmporiaPresentation
 
 				txtProductName.Text = product.ProductName;
 				comboBoxCategories.SelectedValue = product.CategoryID;
-				//comboBoxCategories.SelectedValue = product.Category.CategoryName;
 				txtPrice.Text = product.Price.ToString();
 				txtDescription.Text = product.Description;
 				numericUpDownStockQuantity.Value = Convert.ToInt32(product.StockQuantity);
@@ -250,7 +237,6 @@ namespace App_EclatEmporiaPresentation
 
 				txtProductName.Text = product.ProductName;
 				comboBoxCategories.SelectedValue = product.CategoryID;
-				//comboBoxCategories.SelectedValue = product.Category.CategoryName;
 				txtPrice.Text = product.Price.ToString();
 				txtDescription.Text = product.Description;
 				numericUpDownStockQuantity.Value = Convert.ToInt32(product.StockQuantity);
@@ -265,9 +251,52 @@ namespace App_EclatEmporiaPresentation
 			txtPrice.Text = string.Empty;
 			numericUpDownStockQuantity.Value = 0;
 			comboBoxCategories.SelectedIndex = -1;
+			pictureBox1.Image = null;
+			selectedImageBytes = null;
 
 		}
 
 
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			string searchTerm = textBox1.Text.Trim();
+			IQueryable<Product> searchResults = _productService.SearchProductsByName(searchTerm);
+
+			var productData = searchResults.Select(p => new
+			{
+				p.ProductID,
+				p.ProductName,
+				p.Description,
+				p.Price,
+				p.StockQuantity,
+				p.DateAdded,
+				p.Category.CategoryName
+			}).ToList();
+
+			var products = _productService.GetAllProductsWithIncludes();
+
+
+			dataGridViewProduct.DataSource = productData;
+		}
+
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void uploadImg_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+			openFileDialog.Title = "Select an Image File";
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				selectedImageBytes = File.ReadAllBytes(openFileDialog.FileName);
+				// Optionally, you can display the selected image in a PictureBox:
+				pictureBox1.Image = Image.FromStream(new MemoryStream(selectedImageBytes));
+			}
+		}
 	}
 }

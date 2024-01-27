@@ -1,24 +1,24 @@
 ﻿namespace App_EclatEmporiaPresentation
 {
-    partial class AddCategoryProduct
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class AddCategoryProduct
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
 		#region Windows Form Designer generated code
 
@@ -36,7 +36,6 @@
 			UpdateBtnCat = new Button();
 			DelBtnCateg = new Button();
 			dataGridViewCateg = new DataGridView();
-			ShowBtnCateg = new Button();
 			((System.ComponentModel.ISupportInitialize)dataGridViewCateg).BeginInit();
 			SuspendLayout();
 			// 
@@ -106,28 +105,18 @@
 			// 
 			dataGridViewCateg.BackgroundColor = SystemColors.ControlLightLight;
 			dataGridViewCateg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCateg.Location = new Point(429, 12);
+			dataGridViewCateg.Location = new Point(361, 12);
 			dataGridViewCateg.Name = "dataGridViewCateg";
-			dataGridViewCateg.Size = new Size(240, 150);
+			dataGridViewCateg.Size = new Size(427, 184);
 			dataGridViewCateg.TabIndex = 8;
 			dataGridViewCateg.CellContentClick += dataGridViewCateg_CellContentClick;
-			// 
-			// ShowBtnCateg
-			// 
-			ShowBtnCateg.Location = new Point(355, 177);
-			ShowBtnCateg.Name = "ShowBtnCateg";
-			ShowBtnCateg.Size = new Size(75, 23);
-			ShowBtnCateg.TabIndex = 9;
-			ShowBtnCateg.Text = "ShowData";
-			ShowBtnCateg.UseVisualStyleBackColor = true;
-			ShowBtnCateg.Click += ShowBtnCateg_Click;
 			// 
 			// AddCategoryProduct
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = SystemColors.Highlight;
 			ClientSize = new Size(800, 450);
-			Controls.Add(ShowBtnCateg);
 			Controls.Add(dataGridViewCateg);
 			Controls.Add(DelBtnCateg);
 			Controls.Add(UpdateBtnCat);
@@ -154,6 +143,5 @@
 		private Button UpdateBtnCat;
 		private Button DelBtnCateg;
 		private DataGridView dataGridViewCateg;
-		private Button ShowBtnCateg;
 	}
 }
