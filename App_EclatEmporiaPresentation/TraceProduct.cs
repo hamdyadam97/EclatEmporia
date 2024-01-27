@@ -1,4 +1,7 @@
-﻿using System;
+﻿using App.Application.Services;
+using App.Context;
+using App.Infrastructure.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +15,15 @@ namespace App_EclatEmporiaPresentation
 {
     public partial class TraceProduct : Form
     {
+        //OrderService orderService = new OrderService(new ProductRepository(new StoreContext()));
         public TraceProduct()
         {
             InitializeComponent();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

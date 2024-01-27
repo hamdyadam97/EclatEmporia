@@ -50,7 +50,12 @@ namespace App.Infrastructure.Repositories
 				_dbContext.SaveChanges();
 			}
 		}
-	}
+
+        public int Save()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 
