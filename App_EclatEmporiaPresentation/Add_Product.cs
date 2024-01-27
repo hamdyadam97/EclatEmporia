@@ -4,6 +4,7 @@ using App.Context;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
 using Autofac;
+using Azure.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +22,11 @@ namespace App_EclatEmporiaPresentation
 
 		private readonly IProductService _productService;
 		private readonly ICategoryService _categoryService;
+		public User user { get; set; }
+       
 
-		public Add_Product()
+
+        public Add_Product()
 		{
 			InitializeComponent();
 			var container = DependencyConfig.Configure();
@@ -34,7 +38,9 @@ namespace App_EclatEmporiaPresentation
 		}
 
 		private void Add_Product_Load(object sender, EventArgs e)
+			
 		{
+			MessageBox.Show($"User ID: {user.Email}, Username: {user.Username}");
 			LoadCategories();
 			GetProducts();
 

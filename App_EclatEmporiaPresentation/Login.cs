@@ -50,6 +50,7 @@ namespace App_EclatEmporiaPresentation
                 else
                 {
                     ShowProducts regularUserForm = new ShowProducts();
+                    regularUserForm.user = authenticatedUser;
                     regularUserForm.Show();
                 }
 

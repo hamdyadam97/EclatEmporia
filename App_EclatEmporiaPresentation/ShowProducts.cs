@@ -12,12 +12,16 @@ namespace App_EclatEmporiaPresentation
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         ProductService productService = new ProductService(new ProductRepository(new StoreContext()));
         CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
+        public User user { get; set; }
         public ShowProducts()
         {
-            InitializeComponent();
+            InitializeComponent(); ;
+            
 
+            
 
             var result = showProductService.GetCategories();
+
             //var result = categoryService.GetAllCategories();
 
             foreach (var category in result)
@@ -49,6 +53,7 @@ namespace App_EclatEmporiaPresentation
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
             }
             textBox5.Text = CartProductServices.GetCart(1).ToString();
+            MessageBox.Show($"User ID: {user.UserID}, Username: {user.Username}");
         }
 
         //private async void button1_Click(object sender, EventArgs e)
@@ -86,19 +91,19 @@ namespace App_EclatEmporiaPresentation
                 //var c = product[0].Tag as Product;
                 if (QuantityProductInt != 0)
                 {
-                    if (showProductService.check(productId, showProductService.usercartid(4)))
+                    if (showProductService.check(productId, showProductService.usercartid(user.UserID)))
                     {
                         productService.updateQuantity(productId);
                         showProductService.updateQuantity(productId);
                     }
                     else
                     {
-                       if(CartProductServices.SearchCart(4))
+                       if(CartProductServices.SearchCart(user.UserID))
                         {
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(4)
+                                CartID = showProductService.usercartid(user.UserID)
 
                             });
                             productService.updateQuantity(productId);
@@ -106,11 +111,11 @@ namespace App_EclatEmporiaPresentation
                         }
                         else
                         {
-                            CartProductServices.AddCart(new Cart() { UserID = 4});
+                            CartProductServices.AddCart(new Cart() { UserID = user.UserID});
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(4)
+                                CartID = showProductService.usercartid(user.UserID)
 
                             });
                             productService.updateQuantity(productId);
@@ -137,7 +142,7 @@ namespace App_EclatEmporiaPresentation
                 //   CartID = 1
                 //});
 
-                textBox5.Text = CartProductServices.GetCart(4).ToString();
+                textBox5.Text = CartProductServices.GetCart(user.UserID).ToString();
                 MessageBox.Show("The Product Added Successfully");
             }
             else

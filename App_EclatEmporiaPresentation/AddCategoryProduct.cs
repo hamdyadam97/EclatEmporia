@@ -20,7 +20,8 @@ namespace App_EclatEmporiaPresentation
 
 		private readonly ICategoryService _categoryService;
 		private readonly IProductService _productService;
-		public AddCategoryProduct()
+        public User user { get; set; }
+        public AddCategoryProduct()
 		{
 			InitializeComponent();
 
@@ -29,8 +30,8 @@ namespace App_EclatEmporiaPresentation
 			_productService = container.Resolve<IProductService>();
 			_categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
 			_productService = new ProductService(new ProductRepository(new StoreContext()));
-
-			SetupDataGridView();
+            
+            SetupDataGridView();
 		}
 
 		private void SetupDataGridView()
