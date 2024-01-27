@@ -18,7 +18,7 @@ namespace App_EclatEmporiaPresentation
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
 
-            Application.Run(new AddCategoryProduct());
+            Application.Run(new Add_Product());
 
 		
 
