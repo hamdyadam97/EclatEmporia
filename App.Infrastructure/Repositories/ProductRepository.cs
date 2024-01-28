@@ -33,6 +33,26 @@ namespace App.Infrastructure.Repositories
         {
             return context.Products.Select(x => x);
         }
+        public void updateQuantity(int Productid)
+        {
+            var product = context.Products.FirstOrDefault(p => p.ProductID == Productid);
+            product.StockQuantity -= 1;
+
+            context.SaveChanges();
+        }
+
+        //haidy code
+        public IQueryable<Product> GetAllProductsWithIncludes()
+        {
+            return context.Products.Include(p => p.Category);
+        }
+        public IQueryable<Product> SearchByName(string name)
+        {
+
+            return context.Products
+          .Where(p => p.ProductName.Contains(name))
+          .Include(p => p.Category);
+        }
 
     }
 }

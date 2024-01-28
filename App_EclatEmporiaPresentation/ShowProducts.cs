@@ -53,7 +53,7 @@ namespace App_EclatEmporiaPresentation
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
             }
             textBox5.Text = CartProductServices.GetCart(1).ToString();
-            MessageBox.Show($"User ID: {user.UserID}, Username: {user.Username}");
+            //MessageBox.Show($"User ID: {user.UserID}, Username: {user.Username}");
         }
 
         //private async void button1_Click(object sender, EventArgs e)
@@ -93,7 +93,7 @@ namespace App_EclatEmporiaPresentation
                 {
                     if (showProductService.check(productId, showProductService.usercartid(user.UserID)))
                     {
-                        productService.updateQuantity(productId);
+                        //productService.updateQuantity(productId);
                         showProductService.updateQuantity(productId);
                     }
                     else
@@ -106,7 +106,7 @@ namespace App_EclatEmporiaPresentation
                                 CartID = showProductService.usercartid(user.UserID)
 
                             });
-                            productService.updateQuantity(productId);
+                            //productService.updateQuantity(productId);
                             showProductService.updateQuantity(productId);
                         }
                         else
@@ -118,7 +118,7 @@ namespace App_EclatEmporiaPresentation
                                 CartID = showProductService.usercartid(user.UserID)
 
                             });
-                            productService.updateQuantity(productId);
+                            //productService.updateQuantity(productId);
                             showProductService.updateQuantity(productId);
                         }
                         //CartProductServices.AddCartProduct(new CartProducts()

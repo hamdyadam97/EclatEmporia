@@ -54,11 +54,11 @@ namespace App.Context
                 .HasForeignKey(o => o.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Category>()
-                .HasOne(o => o.User)
-                .WithMany(u => u.Categories)
-                .HasForeignKey(o => o.UserID)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Category>()
+            //    .HasOne(o => o.User)
+            //    .WithMany(u => u.Categories)
+            //    .HasForeignKey(o => o.UserID)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Cart>()
                 .HasKey(c => c.ShoppingCartID);

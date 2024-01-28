@@ -4,6 +4,7 @@ using App.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Context.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240128213438_ptgrrtell")]
+    partial class ptgrrtell
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,12 +77,7 @@ namespace App.Context.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
                     b.HasKey("CategoryID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Categorys");
                 });
@@ -254,15 +252,6 @@ namespace App.Context.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("App.Models.Models.Category", b =>
-                {
-                    b.HasOne("App.Models.Models.User", "User")
-                        .WithMany("Categories")
-                        .HasForeignKey("UserID");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("App.Models.Models.Order", b =>
                 {
                     b.HasOne("App.Models.Models.User", "User")
@@ -329,8 +318,6 @@ namespace App.Context.Migrations
                 {
                     b.Navigation("Cart")
                         .IsRequired();
-
-                    b.Navigation("Categories");
 
                     b.Navigation("Orders");
                 });
