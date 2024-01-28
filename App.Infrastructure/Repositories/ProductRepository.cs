@@ -1,6 +1,7 @@
 ﻿using App.Application.Contracts;
 using App.Context;
 using App.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,12 +34,5 @@ namespace App.Infrastructure.Repositories
             return context.Products.Select(x => x);
         }
 
-        public void updateQuantity(int Productid)
-        {
-           var product = context.Products.FirstOrDefault(p => p.ProductID == Productid);
-            product.StockQuantity -= 1;
-
-            context.SaveChanges();
-        }
     }
 }

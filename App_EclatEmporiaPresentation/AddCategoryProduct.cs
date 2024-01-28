@@ -74,45 +74,61 @@ namespace App_EclatEmporiaPresentation
 		{
 			try
 			{
+				
 				if (ValidateCategoryInput())
 				{
+					
 					if (dataGridViewCateg.SelectedRows.Count > 0)
 					{
+						
 						DataGridViewRow selectedRow = dataGridViewCateg.SelectedRows[0];
 
+						
 						if (selectedRow != null && selectedRow.Index != -1)
 						{
+							
 							int categoryIdToUpdate = Convert.ToInt32(selectedRow.Cells["CategoryId"].Value);
 
+							
 							Category categoryToUpdate = _categoryService.GetCategoryById(categoryIdToUpdate);
 
-							DialogResult result = MessageBox.Show("Are you sure you want to update this category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+							
+							DialogResult result = MessageBox.Show("Are you sure you want to update this category?", "Confirmation", MessageBoxButtons.YesNo);
 
 							if (result == DialogResult.Yes)
 							{
+							
 								categoryToUpdate.CategoryName = textBox1.Text;
 								categoryToUpdate.Description = textBox2.Text;
+
+							
 								_categoryService.UpdateCategory(categoryToUpdate);
+
+								
 								RefreshDataGridView();
+
+								
 								ResetForm();
 							}
 						}
 						else
 						{
+							
 							MessageBox.Show("Please select a valid category to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						}
 					}
 					else
 					{
+						
 						MessageBox.Show("Please select a category to update.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
+				
 				MessageBox.Show($"Error updating category: {ex.Message}", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
 		}
 
 		//Delete
@@ -141,7 +157,7 @@ namespace App_EclatEmporiaPresentation
 		{
 			if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
 			{
-				MessageBox.Show("Please enter valid category name and description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please enter valid category name and description.");
 				return false;
 			}
 
@@ -158,5 +174,4 @@ namespace App_EclatEmporiaPresentation
 
 		
 	}
-
 }

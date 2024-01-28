@@ -45,6 +45,15 @@ namespace App.Application.Services
         {
             return _productRepository.GetProducts();
         }
+        public IQueryable<Product> SearchProductsByName(string productName)
+        {
+            return _productRepository.SearchByName(productName);
+        }
+
+        public IQueryable<Product> GetAllProductsWithIncludes()
+        {
+            return _productRepository.GetAllProductsWithIncludes();
+        }
 
         public void updateQuantity(int Productid)
         {
@@ -56,4 +65,14 @@ namespace App.Application.Services
         //    return _productRepository.GetProductByName(Name);
         //}
     }
-}
+
+		//public IQueryable<Product> GetProductByName(string Name)
+		//{
+		//    return _productRepository.GetProductByName(Name);
+		//}
+
+		//haidy code
+		
+	}
+
+
