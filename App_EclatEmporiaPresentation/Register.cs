@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -45,7 +46,8 @@ namespace App_EclatEmporiaPresentation
                 {
                     Username = UserName.Text,
                     Email = Email.Text,
-                    Password = Password.Text,                   
+                    Password = Password.Text,
+                    ConfirmPassword = ConfirmPassword.Text,
                     Address = Address.Text,                 
                     PhoneNumber = PhoneNumber.Text,
                     FirstName = textBox1.Text,
@@ -53,10 +55,12 @@ namespace App_EclatEmporiaPresentation
                     Role = DetermineUserRole(comboBox1.Text),
                     RegistrationDate = DateTime.Now
                 };
+                
                 bool _MathPassword = ValidatePasswordMatch(newUser);
                 if (_MathPassword)
                 {
                     MessageBox.Show("Password and Confirm must be match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
                 _userService.Add(newUser);
 
@@ -66,18 +70,24 @@ namespace App_EclatEmporiaPresentation
                 if (_userService.DetermineUserRole(comboBox1.Text))
                 {                
                     Add_Product AddProduct = new Add_Product();
+
+                    AddProduct.user = newUser;
                     AddProduct.Show();
+                   
                 }
                 else 
                 {               
                     ShowProducts ShowProducts = new ShowProducts();
+                    ShowProducts.user = newUser;
                     ShowProducts.Show();
+                    
                 }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
             }
 
         }

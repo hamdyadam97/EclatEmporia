@@ -35,7 +35,8 @@ public class UserService : IUserService
             Address = user.Address,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            RegistrationDate = DateTime.Now
+            RegistrationDate = DateTime.Now,
+            ConfirmPassword = user.ConfirmPassword,
         };
 
         _userRepository.Add(newUser);
@@ -51,7 +52,7 @@ public class UserService : IUserService
         return parsedRole;
     }
 
-    private void ValidateInputs(string userName, string email, string password, string confirmPassword, string phoneNumber, string selectedRole)
+    private void ValidateInputs(string userName, string email, string password,string confirmPassword, string phoneNumber, string selectedRole)
     {
         if (string.IsNullOrWhiteSpace(userName) || userName.Length < 4)
         {
@@ -84,7 +85,8 @@ public class UserService : IUserService
         {
             Username = userName,
             Email = email,
-         
+            Password = password,
+            ConfirmPassword = confirmPassword,
             PhoneNumber = phoneNumber,
             Role = isAdmin,
             RegistrationDate = DateTime.Now

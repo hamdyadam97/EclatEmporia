@@ -12,12 +12,16 @@ namespace App_EclatEmporiaPresentation
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         ProductService productService = new ProductService(new ProductRepository(new StoreContext()));
         CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
+        public User user { get; set; }
         public ShowProducts()
         {
-            InitializeComponent();
+            InitializeComponent(); ;
+            
 
+            
 
             var result = showProductService.GetCategories();
+
             //var result = categoryService.GetAllCategories();
 
             foreach (var category in result)
@@ -49,6 +53,7 @@ namespace App_EclatEmporiaPresentation
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
             }
             textBox5.Text = CartProductServices.GetCart(1).ToString();
+            //MessageBox.Show($"User ID: {user.UserID}, Username: {user.Username}");
         }
 
         //private async void button1_Click(object sender, EventArgs e)
@@ -72,6 +77,7 @@ namespace App_EclatEmporiaPresentation
         {
             if (listView1.SelectedItems.Count > 0)
             {
+                MessageBox.Show(SessionData.Instance.user.Email);
                 //Id
                 var selectedProduct = listView1.SelectedItems[0];
                 if (selectedProduct is null) return;
@@ -86,19 +92,19 @@ namespace App_EclatEmporiaPresentation
                 //var c = product[0].Tag as Product;
                 if (QuantityProductInt != 0)
                 {
-                    if (showProductService.check(productId, showProductService.usercartid(5)))
+                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
                         productService.updateQuantity(productId);
                         showProductService.updateQuantity(productId);
                     }
                     else
                     {
-                       if(CartProductServices.SearchCart(5))
+                       if(CartProductServices.SearchCart(SessionData.Instance.user.UserID))
                         {
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(5)
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
                             });
                             productService.updateQuantity(productId);
@@ -106,11 +112,11 @@ namespace App_EclatEmporiaPresentation
                         }
                         else
                         {
-                            CartProductServices.AddCart(new Cart() { UserID = 5});
+                            CartProductServices.AddCart(new Cart() { UserID = SessionData.Instance.user.UserID });
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(5)
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
                             });
                             productService.updateQuantity(productId);
@@ -137,7 +143,7 @@ namespace App_EclatEmporiaPresentation
                 //   CartID = 1
                 //});
 
-                textBox5.Text = CartProductServices.GetCart(4).ToString();
+                textBox5.Text = CartProductServices.GetCart(SessionData.Instance.user.UserID).ToString();
                 MessageBox.Show("The Product Added Successfully");
             }
             else
@@ -148,8 +154,10 @@ namespace App_EclatEmporiaPresentation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ShowCart showCart = new ShowCart();
-            showCart.Show();
+            //ShowCart showCart = new ShowCart();
+            //showCart.Show();
+            MyOrders myOrders = new MyOrders();
+            myOrders.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

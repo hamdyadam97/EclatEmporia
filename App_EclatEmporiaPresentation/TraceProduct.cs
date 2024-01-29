@@ -140,7 +140,7 @@ namespace App_EclatEmporiaPresentation
         {
             try
             {
-                
+
 
                 // Validate Category
                 if (comboBox1.SelectedItem == null)
@@ -149,7 +149,7 @@ namespace App_EclatEmporiaPresentation
                     return;
                 }
 
-               
+
 
                 // All validation passed, proceed to update the product
                 var selectedRow = dataGridView1.SelectedRows[0].Index;
@@ -157,7 +157,7 @@ namespace App_EclatEmporiaPresentation
 
                 var product = orderService.GetOrderById(orderId);
 
-              
+
                 product.OrderStatus = Convert.ToString(comboBox1.SelectedValue);
 
 
@@ -175,6 +175,11 @@ namespace App_EclatEmporiaPresentation
             {
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

@@ -15,7 +15,8 @@ namespace App.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-H2HR40I;Initial Catalog=NewProject;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-3HHLPJ7\\SQLEXPRESS;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,11 +54,11 @@ namespace App.Context
                 .HasForeignKey(o => o.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Category>()
-                .HasOne(o => o.User)
-                .WithMany(u => u.Categories)
-                .HasForeignKey(o => o.UserID)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Category>()
+            //    .HasOne(o => o.User)
+            //    .WithMany(u => u.Categories)
+            //    .HasForeignKey(o => o.UserID)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Cart>()
                 .HasKey(c => c.ShoppingCartID);
