@@ -42,15 +42,17 @@ namespace App_EclatEmporiaPresentation
 
             if (authenticatedUser != null)
             {
+                SessionData.Instance.user = authenticatedUser;
                 if (authenticatedUser.Role)
                 {
                     AddCategoryProduct adminForm = new AddCategoryProduct();
+                    
                     adminForm.Show();
                 }
                 else
                 {
                     ShowProducts regularUserForm = new ShowProducts();
-                    regularUserForm.user = authenticatedUser;
+                   
                     regularUserForm.Show();
                 }
 

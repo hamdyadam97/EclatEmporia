@@ -60,18 +60,9 @@ namespace App.Application.Services
             _productRepository.updateQuantity(Productid);
         }
 
-        //public IQueryable<Product> GetProductByName(string Name)
-        //{
-        //    return _productRepository.GetProductByName(Name);
-        //}
+        
     }
 
-		//public IQueryable<Product> GetProductByName(string Name)
-		//{
-		//    return _productRepository.GetProductByName(Name);
-		//}
-
-		//haidy code
 		
 	}
 

@@ -77,6 +77,7 @@ namespace App_EclatEmporiaPresentation
         {
             if (listView1.SelectedItems.Count > 0)
             {
+                MessageBox.Show(SessionData.Instance.user.Email);
                 //Id
                 var selectedProduct = listView1.SelectedItems[0];
                 if (selectedProduct is null) return;
@@ -91,34 +92,34 @@ namespace App_EclatEmporiaPresentation
                 //var c = product[0].Tag as Product;
                 if (QuantityProductInt != 0)
                 {
-                    if (showProductService.check(productId, showProductService.usercartid(user.UserID)))
+                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
-                        //productService.updateQuantity(productId);
+                        productService.updateQuantity(productId);
                         showProductService.updateQuantity(productId);
                     }
                     else
                     {
-                       if(CartProductServices.SearchCart(user.UserID))
+                       if(CartProductServices.SearchCart(SessionData.Instance.user.UserID))
                         {
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(user.UserID)
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
                             });
-                            //productService.updateQuantity(productId);
+                            productService.updateQuantity(productId);
                             showProductService.updateQuantity(productId);
                         }
                         else
                         {
-                            CartProductServices.AddCart(new Cart() { UserID = user.UserID});
+                            CartProductServices.AddCart(new Cart() { UserID = SessionData.Instance.user.UserID });
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(user.UserID)
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
                             });
-                            //productService.updateQuantity(productId);
+                            productService.updateQuantity(productId);
                             showProductService.updateQuantity(productId);
                         }
                         //CartProductServices.AddCartProduct(new CartProducts()
@@ -142,7 +143,7 @@ namespace App_EclatEmporiaPresentation
                 //   CartID = 1
                 //});
 
-                textBox5.Text = CartProductServices.GetCart(user.UserID).ToString();
+                textBox5.Text = CartProductServices.GetCart(SessionData.Instance.user.UserID).ToString();
                 MessageBox.Show("The Product Added Successfully");
             }
             else
@@ -153,8 +154,10 @@ namespace App_EclatEmporiaPresentation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ShowCart showCart = new ShowCart();
-            showCart.Show();
+            //ShowCart showCart = new ShowCart();
+            //showCart.Show();
+            MyOrders myOrders = new MyOrders();
+            myOrders.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
