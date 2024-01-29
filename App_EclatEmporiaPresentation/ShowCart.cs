@@ -1,4 +1,10 @@
-﻿using System;
+﻿using App.Application.Services;
+using App.Context;
+using App.Context.Migrations;
+using App.Infrastructure.Repositories;
+using App.Models.Models;
+using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +18,48 @@ namespace App_EclatEmporiaPresentation
 {
     public partial class ShowCart : Form
     {
+        ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
+        CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
+
         public ShowCart()
         {
             InitializeComponent();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ShowCart_Load(object sender, EventArgs e)
+        {
+            int cartId = 1;
+            var productsInCart = CartProductServices.GetProductsInCart(cartId);
+
+            dataGridView1.DataSource = productsInCart;
+
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridView1.SelectedRows[0];
+                int CartID = 1;
+                var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
+                CartProductServices.RemoveCartProduct(CartID, ProductID);
+                ShowCart_Load(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Please select a product to remove.");
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

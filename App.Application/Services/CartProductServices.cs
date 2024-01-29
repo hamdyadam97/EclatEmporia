@@ -22,6 +22,8 @@ namespace App.Application.Services
             _ICartRepositry.Save();
         }
 
+
+
         public void AddCartProduct(CartProducts cartProducts)
         {
             _ICartRepositry.AddCartProduct(cartProducts);
@@ -41,5 +43,18 @@ namespace App.Application.Services
         {
             return _ICartRepositry.SearchCart(userID);
         }
+
+
+        /// new func
+        public List<Product> GetProductsInCart(int CartID)
+        {
+            return _ICartRepositry.GetProductsInCart(CartID);
+        }
+ 
+         public void RemoveCartProduct(int CartID, int ProductID)
+        {
+            _ICartRepositry.RemoveCartProduct(CartID, ProductID);
+        }
+
     }
 }

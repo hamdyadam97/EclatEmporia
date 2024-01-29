@@ -28,12 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "ShowCart";
+            dataGridView1 = new DataGridView();
+            delete = new Button();
+            Confirm = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(354, 12);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(434, 386);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // delete
+            // 
+            delete.Location = new Point(62, 274);
+            delete.Name = "delete";
+            delete.RightToLeft = RightToLeft.No;
+            delete.Size = new Size(75, 23);
+            delete.TabIndex = 1;
+            delete.Text = "Delete";
+            delete.UseVisualStyleBackColor = true;
+            delete.Click += delete_Click;
+            // 
+            // Confirm
+            // 
+            Confirm.Location = new Point(62, 168);
+            Confirm.Name = "Confirm";
+            Confirm.Size = new Size(75, 23);
+            Confirm.TabIndex = 2;
+            Confirm.Text = "Confirm";
+            Confirm.UseVisualStyleBackColor = true;
+            Confirm.Click += button2_Click;
+            // 
+            // ShowCart
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(Confirm);
+            Controls.Add(delete);
+            Controls.Add(dataGridView1);
+            Name = "ShowCart";
+            Text = "ShowCart";
+            Load += ShowCart_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dataGridView1;
+        private Button delete;
+        private Button Confirm;
     }
 }

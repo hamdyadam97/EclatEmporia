@@ -54,7 +54,7 @@ namespace App_EclatEmporiaPresentation
                     RegistrationDate = DateTime.Now
                 };
                 bool _MathPassword = ValidatePasswordMatch(newUser);
-                if (!_MathPassword)
+                if (_MathPassword)
                 {
                     MessageBox.Show("Password and Confirm must be match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

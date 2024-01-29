@@ -105,7 +105,7 @@
             comboBox1.Location = new Point(976, 65);
             comboBox1.Margin = new Padding(4, 3, 4, 3);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(342, 28);
+            comboBox1.Size = new Size(342, 24);
             comboBox1.TabIndex = 1;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -137,7 +137,7 @@
             textBox1.Location = new Point(253, 65);
             textBox1.Margin = new Padding(4, 3, 4, 3);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(375, 30);
+            textBox1.Size = new Size(375, 26);
             textBox1.TabIndex = 5;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -146,7 +146,7 @@
             textBox2.Location = new Point(1202, 235);
             textBox2.Margin = new Padding(4, 3, 4, 3);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(170, 30);
+            textBox2.Size = new Size(170, 26);
             textBox2.TabIndex = 6;
             // 
             // textBox3
@@ -154,7 +154,7 @@
             textBox3.Location = new Point(1202, 326);
             textBox3.Margin = new Padding(4, 3, 4, 3);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(170, 30);
+            textBox3.Size = new Size(170, 26);
             textBox3.TabIndex = 7;
             // 
             // textBox4
@@ -162,7 +162,7 @@
             textBox4.Location = new Point(1202, 417);
             textBox4.Margin = new Padding(4, 3, 4, 3);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(170, 30);
+            textBox4.Size = new Size(170, 26);
             textBox4.TabIndex = 8;
             // 
             // label1
@@ -228,18 +228,18 @@
             // 
             textBox5.Location = new Point(1145, 127);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(125, 30);
+            textBox5.Size = new Size(125, 26);
             textBox5.TabIndex = 15;
             textBox5.TextChanged += textBox5_TextChanged;
             // 
             // ShowProducts
             // 
-            AutoScaleDimensions = new SizeF(11F, 20F);
+            AutoScaleDimensions = new SizeF(9F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1433, 612);
+            ClientSize = new Size(1370, 612);
             Controls.Add(textBox5);
             Controls.Add(label6);
             Controls.Add(label5);

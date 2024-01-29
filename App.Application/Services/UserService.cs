@@ -20,7 +20,7 @@ public class UserService : IUserService
 
     public void Add(User user)
     {
-        ValidateInputs(user.Username, user.Email, user.Password, user.Password, user.PhoneNumber, user.Role.ToString());
+        ValidateInputs(user.Username, user.Email, user.Password, user.ConfirmPassword, user.PhoneNumber, user.Role.ToString());
 
         bool parsedRole = ParseRoleString(user.Role.ToString());
 
@@ -29,6 +29,7 @@ public class UserService : IUserService
             Username = user.Username,
             Email = user.Email,
             Password = user.Password,
+            ConfirmPassword=user.ConfirmPassword,
             PhoneNumber = user.PhoneNumber,
             Role = parsedRole,
             Address = user.Address,
@@ -83,7 +84,7 @@ public class UserService : IUserService
         {
             Username = userName,
             Email = email,
-            Password = confirmPassword,
+         
             PhoneNumber = phoneNumber,
             Role = isAdmin,
             RegistrationDate = DateTime.Now

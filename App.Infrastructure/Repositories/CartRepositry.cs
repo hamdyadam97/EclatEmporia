@@ -1,6 +1,8 @@
 ﻿using App.Application.Contracts;
 using App.Context;
+using App.Context.Migrations;
 using App.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,5 +45,46 @@ namespace App.Infrastructure.Repositories
         {
             return context.Carts.Any(x => x.UserID == userID);
         }
+
+
+        // new func 
+
+        public void RemoveCartProduct(int cartId, int productId)
+        {
+            var cartProduct = context.CartProducts
+                .FirstOrDefault(cp => cp.CartID == cartId && cp.ProductID == productId);
+
+            if (cartProduct != null)
+            {
+                context.CartProducts.Remove(cartProduct);
+                context.SaveChanges();
+            }
+        }
+
+        //public List<CartProducts> GetProductsInCart(int cartId)
+        //{
+        //    return context.CartProducts.Where(cp => cp.CartID == cartId).ToList();
+        //}
+
+
+
+        public List<Product> GetProductsInCart(int cartId)
+        {
+            return context.CartProducts
+                .Where(cp => cp.CartID == cartId)
+                .Select(cp => new Product
+                {
+                    ProductName = cp.Product.ProductName,
+                    Description = cp.Product.Description,
+                    Price = cp.Product.Price,
+                    StockQuantity = cp.Quantity
+                })
+                .ToList();
+        }
+
+
+
+
+
     }
 }
