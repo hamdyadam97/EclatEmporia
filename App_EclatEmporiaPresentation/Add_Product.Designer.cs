@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Add_Product));
 			txtProductName = new TextBox();
 			txtDescription = new TextBox();
 			txtPrice = new TextBox();
@@ -225,6 +226,8 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+			BackgroundImageLayout = ImageLayout.Stretch;
 			ClientSize = new Size(800, 450);
 			Controls.Add(uploadImg);
 			Controls.Add(pictureBox1);

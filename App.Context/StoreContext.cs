@@ -1,6 +1,7 @@
-﻿using App.Context.Migrations;
+﻿
 using App.Models.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace App.Context
 	public class StoreContext :DbContext
 	{
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
+
 			optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+
 		}
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,9 +36,9 @@ namespace App.Context
 				.HasOne(po => po.Order)
 				.WithMany(o => o.OrderProducts)
 				.HasForeignKey(po => po.OrderID)
-				.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Cascade);
 
-
+			
 			modelBuilder.Entity<Product>()
 				.HasOne(p => p.Category)
 				.WithMany(c => c.Products)
@@ -52,12 +55,6 @@ namespace App.Context
 				.WithMany(u => u.Orders)
 				.HasForeignKey(o => o.UserID)
 				.OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Category>()
-                .HasOne(o => o.User)
-                .WithMany(u => u.Categories)
-                .HasForeignKey(o => o.UserID)
-                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Cart>()
 				.HasKey(c => c.ShoppingCartID);

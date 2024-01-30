@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCategoryProduct));
 			textBox1 = new TextBox();
 			namecatLab = new Label();
 			descLab = new Label();
@@ -49,6 +50,7 @@
 			// namecatLab
 			// 
 			namecatLab.AutoSize = true;
+			namecatLab.BackColor = Color.AliceBlue;
 			namecatLab.Location = new Point(51, 44);
 			namecatLab.Name = "namecatLab";
 			namecatLab.Size = new Size(93, 15);
@@ -58,6 +60,7 @@
 			// descLab
 			// 
 			descLab.AutoSize = true;
+			descLab.BackColor = Color.AliceBlue;
 			descLab.Location = new Point(60, 94);
 			descLab.Name = "descLab";
 			descLab.Size = new Size(73, 15);
@@ -107,7 +110,7 @@
 			dataGridViewCateg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewCateg.Location = new Point(361, 12);
 			dataGridViewCateg.Name = "dataGridViewCateg";
-			dataGridViewCateg.Size = new Size(427, 184);
+			dataGridViewCateg.Size = new Size(343, 184);
 			dataGridViewCateg.TabIndex = 8;
 			dataGridViewCateg.CellContentClick += dataGridViewCateg_CellContentClick;
 			// 
@@ -115,7 +118,9 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			BackColor = SystemColors.Highlight;
+			BackColor = Color.Navy;
+			BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+			BackgroundImageLayout = ImageLayout.Stretch;
 			ClientSize = new Size(800, 450);
 			Controls.Add(dataGridViewCateg);
 			Controls.Add(DelBtnCateg);
@@ -125,6 +130,7 @@
 			Controls.Add(descLab);
 			Controls.Add(namecatLab);
 			Controls.Add(textBox1);
+			ForeColor = SystemColors.ControlText;
 			Name = "AddCategoryProduct";
 			Text = "AddCategory";
 			Load += AddCategoryProduct_Load;

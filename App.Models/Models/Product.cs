@@ -19,6 +19,7 @@ namespace App.Models.Models
 
 		public DateTime DateAdded { get; set; }
 		public byte[]? Image { get; set; }
+	
 		// One-to-Many: One category can many products
 		public int? CategoryID { get; set; }
 		public virtual Category Category { get; set; }

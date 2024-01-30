@@ -26,8 +26,7 @@ namespace App.Models.Models
 
 		// One-to-One: One user can have one shopping cart
 		public Cart Cart { get; set; }
-        public List<Category> Categories { get; set; }
-
+     
         public bool Role { get; set; }
 	}
 }

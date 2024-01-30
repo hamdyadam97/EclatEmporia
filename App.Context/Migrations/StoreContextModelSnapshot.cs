@@ -55,12 +55,7 @@ namespace App.Context.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
                     b.HasKey("CategoryID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Categorys");
                 });
@@ -117,6 +112,9 @@ namespace App.Context.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<decimal?>("Price")
                         .IsRequired()
@@ -209,16 +207,6 @@ namespace App.Context.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("App.Models.Models.Category", b =>
-                {
-                    b.HasOne("App.Models.Models.User", "User")
-                        .WithMany("Categories")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("App.Models.Models.Order", b =>
                 {
                     b.HasOne("App.Models.Models.User", "User")
@@ -278,8 +266,6 @@ namespace App.Context.Migrations
                 {
                     b.Navigation("Cart")
                         .IsRequired();
-
-                    b.Navigation("Categories");
 
                     b.Navigation("Orders");
                 });
