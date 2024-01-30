@@ -49,17 +49,26 @@ namespace App.Infrastructure.Repositories
 
         // new func 
 
-        public void RemoveCartProduct(int cartId, int productId)
+
+
+        public void RemoveCartProduct(int productId)
         {
             var cartProduct = context.CartProducts
-                .FirstOrDefault(cp => cp.CartID == cartId && cp.ProductID == productId);
+                .FirstOrDefault(cp => cp.ProductID == productId);
 
             if (cartProduct != null)
             {
                 context.CartProducts.Remove(cartProduct);
                 context.SaveChanges();
             }
+            else
+            {
+                throw new Exception("Product not found in cart.");
+            }
         }
+
+
+
 
         //public List<CartProducts> GetProductsInCart(int cartId)
         //{
@@ -74,6 +83,7 @@ namespace App.Infrastructure.Repositories
                 .Where(cp => cp.CartID == cartId)
                 .Select(cp => new Product
                 {
+                    ProductID = cp.ProductID,   
                     ProductName = cp.Product.ProductName,
                     Description = cp.Product.Description,
                     Price = cp.Product.Price,
@@ -81,6 +91,8 @@ namespace App.Infrastructure.Repositories
                 })
                 .ToList();
         }
+
+
 
 
 

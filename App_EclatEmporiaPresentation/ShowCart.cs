@@ -4,6 +4,7 @@ using App.Context.Migrations;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
 using Microsoft.Identity.Client;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,21 +34,30 @@ namespace App_EclatEmporiaPresentation
 
         private void ShowCart_Load(object sender, EventArgs e)
         {
-            int cartId = 1;
-            var productsInCart = CartProductServices.GetProductsInCart(cartId);
+            int cartId = 6;
+            var productsInCart = CartProductServices.GetProductsInCart(cartId)
+                .Select(p => new
+                {
+                   productid= p.ProductID,
+                    productName = p.ProductName,
+                    description = p.Description,
+                    price = p.Price,
+                    stockQuantity = p.StockQuantity
+                });
 
-            dataGridView1.DataSource = productsInCart;
-
+            dataGridView1.DataSource = productsInCart.ToList();
         }
+
+
 
         private void delete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 var selectedRow = dataGridView1.SelectedRows[0];
-                int CartID = 1;
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
-                CartProductServices.RemoveCartProduct(CartID, ProductID);
+                CartProductServices.RemoveCartProduct(ProductID);
+                MessageBox.Show("Delete button clicked");
                 ShowCart_Load(sender, e);
             }
             else
@@ -60,6 +70,10 @@ namespace App_EclatEmporiaPresentation
         private void button2_Click(object sender, EventArgs e)
         {
 
+
+
+            MyOrders myOrders   = new MyOrders();
+            myOrders.Show();
         }
     }
 }

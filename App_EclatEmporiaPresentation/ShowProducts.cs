@@ -156,8 +156,8 @@ namespace App_EclatEmporiaPresentation
         {
             //ShowCart showCart = new ShowCart();
             //showCart.Show();
-            MyOrders myOrders = new MyOrders();
-            myOrders.Show();
+            ShowCart ShowCart = new ShowCart();
+            ShowCart.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

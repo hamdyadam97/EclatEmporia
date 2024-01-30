@@ -17,9 +17,9 @@ namespace App.Application.Contracts
 
 
         /// new func
-        void RemoveCartProduct(int CartID, int ProductID);
+        void RemoveCartProduct( int productId);
 
-        List<Product> GetProductsInCart(int CartID);
+        List<Product> GetProductsInCart(int cartId);
 
     }
 }
