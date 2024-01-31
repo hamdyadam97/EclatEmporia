@@ -16,7 +16,7 @@ namespace App.Application.Contracts
         public IQueryable<Product> GetProductsByCat(string category);
         public bool check(int productid , int categoryid);
         public int usercartid(int userid);
-        public void updateQuantity(int Productid);
+        public void updateQuantity(int Productid, int cartid);
         //public int GetCart(int userID);
         public int Save();
     }

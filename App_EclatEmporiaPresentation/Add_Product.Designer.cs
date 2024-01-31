@@ -55,73 +55,78 @@
             // 
             // txtProductName
             // 
-            txtProductName.Location = new Point(161, 112);
+            txtProductName.Location = new Point(184, 149);
+            txtProductName.Margin = new Padding(3, 4, 3, 4);
             txtProductName.Name = "txtProductName";
-            txtProductName.Size = new Size(132, 23);
+            txtProductName.Size = new Size(150, 27);
             txtProductName.TabIndex = 0;
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(161, 149);
+            txtDescription.Location = new Point(184, 199);
+            txtDescription.Margin = new Padding(3, 4, 3, 4);
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(132, 23);
+            txtDescription.Size = new Size(150, 27);
             txtDescription.TabIndex = 1;
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(161, 194);
+            txtPrice.Location = new Point(184, 259);
+            txtPrice.Margin = new Padding(3, 4, 3, 4);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(132, 23);
+            txtPrice.Size = new Size(150, 27);
             txtPrice.TabIndex = 2;
             // 
             // PnameLab
             // 
             PnameLab.AutoSize = true;
-            PnameLab.Location = new Point(22, 120);
+            PnameLab.Location = new Point(25, 160);
             PnameLab.Name = "PnameLab";
-            PnameLab.Size = new Size(87, 15);
+            PnameLab.Size = new Size(107, 20);
             PnameLab.TabIndex = 3;
             PnameLab.Text = "ProductName :";
             // 
             // PdesLab
             // 
             PdesLab.AutoSize = true;
-            PdesLab.Location = new Point(40, 166);
+            PdesLab.Location = new Point(46, 221);
             PdesLab.Name = "PdesLab";
-            PdesLab.Size = new Size(73, 15);
+            PdesLab.Size = new Size(92, 20);
             PdesLab.TabIndex = 4;
             PdesLab.Text = "Description :";
             // 
             // PpriceLab
             // 
             PpriceLab.AutoSize = true;
-            PpriceLab.Location = new Point(70, 197);
+            PpriceLab.Location = new Point(80, 263);
             PpriceLab.Name = "PpriceLab";
-            PpriceLab.Size = new Size(39, 15);
+            PpriceLab.Size = new Size(48, 20);
             PpriceLab.TabIndex = 5;
             PpriceLab.Text = "Price :";
             // 
             // numericUpDownStockQuantity
             // 
-            numericUpDownStockQuantity.Location = new Point(161, 236);
+            numericUpDownStockQuantity.Location = new Point(184, 315);
+            numericUpDownStockQuantity.Margin = new Padding(3, 4, 3, 4);
             numericUpDownStockQuantity.Name = "numericUpDownStockQuantity";
-            numericUpDownStockQuantity.Size = new Size(120, 23);
+            numericUpDownStockQuantity.Size = new Size(137, 27);
             numericUpDownStockQuantity.TabIndex = 6;
             // 
             // PupdownLab
             // 
             PupdownLab.AutoSize = true;
-            PupdownLab.Location = new Point(18, 238);
+            PupdownLab.Location = new Point(21, 317);
             PupdownLab.Name = "PupdownLab";
-            PupdownLab.Size = new Size(91, 15);
+            PupdownLab.Size = new Size(112, 20);
             PupdownLab.TabIndex = 7;
             PupdownLab.Text = "Stock Quantity :";
             // 
             // btnaAddProduct
             // 
-            btnaAddProduct.Location = new Point(18, 333);
+            btnaAddProduct.Location = new Point(21, 444);
+            btnaAddProduct.Margin = new Padding(3, 4, 3, 4);
             btnaAddProduct.Name = "btnaAddProduct";
-            btnaAddProduct.Size = new Size(75, 23);
+            btnaAddProduct.Size = new Size(86, 31);
             btnaAddProduct.TabIndex = 8;
             btnaAddProduct.Text = "Add";
             btnaAddProduct.UseVisualStyleBackColor = true;
@@ -130,18 +135,19 @@
             // comboBoxCategories
             // 
             comboBoxCategories.FormattingEnabled = true;
-            comboBoxCategories.Location = new Point(161, 277);
+            comboBoxCategories.Location = new Point(184, 369);
+            comboBoxCategories.Margin = new Padding(3, 4, 3, 4);
             comboBoxCategories.Name = "comboBoxCategories";
-            comboBoxCategories.Size = new Size(121, 23);
+            comboBoxCategories.Size = new Size(138, 28);
             comboBoxCategories.TabIndex = 9;
             comboBoxCategories.SelectedIndexChanged += comboBoxCategories_SelectedIndexChanged;
             // 
             // CateLabProduct
             // 
             CateLabProduct.AutoSize = true;
-            CateLabProduct.Location = new Point(40, 285);
+            CateLabProduct.Location = new Point(46, 380);
             CateLabProduct.Name = "CateLabProduct";
-            CateLabProduct.Size = new Size(69, 15);
+            CateLabProduct.Size = new Size(87, 20);
             CateLabProduct.TabIndex = 10;
             CateLabProduct.Text = "Categories :";
             // 
@@ -150,18 +156,21 @@
             dataGridViewProduct.BackgroundColor = SystemColors.ControlLightLight;
             dataGridViewProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProduct.GridColor = SystemColors.GrayText;
-            dataGridViewProduct.Location = new Point(335, 4);
+            dataGridViewProduct.Location = new Point(383, 5);
+            dataGridViewProduct.Margin = new Padding(3, 4, 3, 4);
             dataGridViewProduct.Name = "dataGridViewProduct";
-            dataGridViewProduct.Size = new Size(658, 309);
+            dataGridViewProduct.RowHeadersWidth = 51;
+            dataGridViewProduct.Size = new Size(752, 412);
             dataGridViewProduct.TabIndex = 11;
             dataGridViewProduct.CellContentClick += dataGridViewProduct_CellContentClick;
             dataGridViewProduct.RowHeaderMouseClick += dataGridViewProduct_RowHeaderMouseClick;
             // 
             // BtnUpdateProduct
             // 
-            BtnUpdateProduct.Location = new Point(138, 333);
+            BtnUpdateProduct.Location = new Point(158, 444);
+            BtnUpdateProduct.Margin = new Padding(3, 4, 3, 4);
             BtnUpdateProduct.Name = "BtnUpdateProduct";
-            BtnUpdateProduct.Size = new Size(75, 23);
+            BtnUpdateProduct.Size = new Size(86, 31);
             BtnUpdateProduct.TabIndex = 12;
             BtnUpdateProduct.Text = "Update";
             BtnUpdateProduct.UseVisualStyleBackColor = true;
@@ -169,9 +178,10 @@
             // 
             // BtnDeleteProduct
             // 
-            BtnDeleteProduct.Location = new Point(261, 333);
+            BtnDeleteProduct.Location = new Point(298, 444);
+            BtnDeleteProduct.Margin = new Padding(3, 4, 3, 4);
             BtnDeleteProduct.Name = "BtnDeleteProduct";
-            BtnDeleteProduct.Size = new Size(75, 23);
+            BtnDeleteProduct.Size = new Size(86, 31);
             BtnDeleteProduct.TabIndex = 13;
             BtnDeleteProduct.Text = "Delete";
             BtnDeleteProduct.UseVisualStyleBackColor = true;
@@ -179,35 +189,39 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(99, 42);
+            textBox1.Location = new Point(113, 56);
+            textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(213, 23);
+            textBox1.Size = new Size(243, 27);
             textBox1.TabIndex = 14;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 45);
+            label1.Location = new Point(7, 60);
             label1.Name = "label1";
-            label1.Size = new Size(93, 15);
+            label1.Size = new Size(116, 20);
             label1.TabIndex = 15;
             label1.Text = "SearchByName :";
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(383, 319);
+            pictureBox1.Location = new Point(438, 425);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(573, 88);
+            pictureBox1.Size = new Size(655, 117);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 16;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
             // uploadImg
             // 
-            uploadImg.Location = new Point(503, 415);
+            uploadImg.Location = new Point(575, 553);
+            uploadImg.Margin = new Padding(3, 4, 3, 4);
             uploadImg.Name = "uploadImg";
-            uploadImg.Size = new Size(75, 23);
+            uploadImg.Size = new Size(86, 31);
             uploadImg.TabIndex = 17;
             uploadImg.Text = "Upload";
             uploadImg.UseVisualStyleBackColor = true;
@@ -223,9 +237,9 @@
             // 
             // Add_Product
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1005, 450);
+            ClientSize = new Size(1149, 600);
             Controls.Add(uploadImg);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
@@ -244,6 +258,7 @@
             Controls.Add(txtPrice);
             Controls.Add(txtDescription);
             Controls.Add(txtProductName);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Add_Product";
             Text = "Add_Product";
             Load += Add_Product_Load;

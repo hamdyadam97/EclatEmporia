@@ -51,6 +51,9 @@
             label5 = new Label();
             label6 = new Label();
             textBox5 = new TextBox();
+            label7 = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // listView1
@@ -58,7 +61,7 @@
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6 });
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
-            listView1.Location = new Point(54, 184);
+            listView1.Location = new Point(40, 167);
             listView1.Margin = new Padding(4, 3, 4, 3);
             listView1.MultiSelect = false;
             listView1.Name = "listView1";
@@ -128,7 +131,7 @@
             button3.Name = "button3";
             button3.Size = new Size(129, 29);
             button3.TabIndex = 4;
-            button3.Text = "Orders";
+            button3.Text = "The Cart";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
@@ -232,6 +235,24 @@
             textBox5.TabIndex = 15;
             textBox5.TextChanged += textBox5_TextChanged;
             // 
+            // label7
+            // 
+            label7.BackColor = Color.Transparent;
+            label7.Location = new Point(976, 489);
+            label7.Name = "label7";
+            label7.Size = new Size(174, 25);
+            label7.TabIndex = 16;
+            label7.Text = "Product Image";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(1202, 489);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(170, 94);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 17;
+            pictureBox1.TabStop = false;
+            // 
             // ShowProducts
             // 
             AutoScaleDimensions = new SizeF(11F, 20F);
@@ -240,6 +261,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1433, 612);
+            Controls.Add(pictureBox1);
+            Controls.Add(label7);
             Controls.Add(textBox5);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -260,6 +283,7 @@
             Name = "ShowProducts";
             Text = "ShowProducts";
             Load += ShowProducts_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -288,5 +312,7 @@
         private Label label5;
         private Label label6;
         private TextBox textBox5;
+        private Label label7;
+        private PictureBox pictureBox1;
     }
 }

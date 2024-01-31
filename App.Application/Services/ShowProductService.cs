@@ -57,9 +57,9 @@ namespace App.Application.Services
             return _IShowRepositry.Save();
         }
 
-        public void updateQuantity(int Productid)
+        public void updateQuantity(int Productid, int cartid)
         {
-            _IShowRepositry.updateQuantity(Productid);
+            _IShowRepositry.updateQuantity(Productid, cartid);
         }
 
         public int usercartid(int userid)
