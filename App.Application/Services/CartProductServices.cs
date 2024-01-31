@@ -29,10 +29,19 @@ namespace App.Application.Services
             _ICartRepositry.AddCartProduct(cartProducts);
             _ICartRepositry.Save();
         }
-        
+        public void UpdateCartProduct(int productId,int cartID)
+        {
+            _ICartRepositry.UpdateCartProduct(productId, cartID);
+          
+        }
+
         public int GetCart(int userID)
         {
             return _ICartRepositry.GetCart(userID);
+        }
+        public int GetCartUserId(int userID)
+        {
+            return _ICartRepositry.GetCartUserId(userID);
         }
         public int Save()
         {

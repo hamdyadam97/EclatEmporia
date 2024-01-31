@@ -116,7 +116,8 @@ namespace App_EclatEmporiaPresentation
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID),
+                                
 
                             });
                             productService.updateQuantity(productId);
@@ -156,7 +157,7 @@ namespace App_EclatEmporiaPresentation
         {
             //ShowCart showCart = new ShowCart();
             //showCart.Show();
-            MyOrders myOrders = new MyOrders();
+            ShowCart myOrders = new ShowCart();
             myOrders.Show();
         }
 

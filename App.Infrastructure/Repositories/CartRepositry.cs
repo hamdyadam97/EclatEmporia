@@ -28,6 +28,14 @@ namespace App.Infrastructure.Repositories
         {
             context.CartProducts.Add(cartProducts);
         }
+        public void UpdateCartProduct(int Productid,int CartId)
+        {
+            var product = context.CartProducts.FirstOrDefault(p => p.ProductID == Productid&& p.CartID==CartId);
+            product.IsAddOrder =true;
+
+            context.SaveChanges();
+           
+        }
         public int GetCart(int userID)
         {
             var result = from x in context.CartProducts
@@ -35,6 +43,15 @@ namespace App.Infrastructure.Repositories
                          where s.UserID == userID
                          select x.ProductID;
             return result.Count();
+        }
+        public int  GetCartUserId(int userID)
+        {
+            var cartId = context.Carts
+                              .Where(x => x.UserID == userID)
+                              .Select(x => x.ShoppingCartID)
+                              .FirstOrDefault();
+
+            return cartId;
         }
         public int Save()
         {
@@ -71,9 +88,10 @@ namespace App.Infrastructure.Repositories
         public List<Product> GetProductsInCart(int cartId)
         {
             return context.CartProducts
-                .Where(cp => cp.CartID == cartId)
+                .Where(cp => cp.CartID == cartId && cp.IsAddOrder!=true)
                 .Select(cp => new Product
                 {
+                    ProductID = cp.ProductID,
                     ProductName = cp.Product.ProductName,
                     Description = cp.Product.Description,
                     Price = cp.Product.Price,

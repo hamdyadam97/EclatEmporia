@@ -18,10 +18,10 @@ namespace App_EclatEmporiaPresentation
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
 
-            Application.Run(new ShowProducts());
+        
 
             Application.Run(new Login());
->>>>>>>>> Temporary merge branch 2
+
 		
 
 
