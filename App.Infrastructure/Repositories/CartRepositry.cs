@@ -68,6 +68,8 @@ namespace App.Infrastructure.Repositories
 
         public void RemoveCartProduct(int cartId, int productId)
         {
+            int x = cartId;
+            int y = productId;
             var cartProduct = context.CartProducts
                 .FirstOrDefault(cp => cp.CartID == cartId && cp.ProductID == productId);
 

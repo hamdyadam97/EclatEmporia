@@ -48,9 +48,10 @@ namespace App_EclatEmporiaPresentation
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 var selectedRow = dataGridView1.SelectedRows[0];
-                int CartID = 1;
+                
+                var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
-                CartProductServices.RemoveCartProduct(CartID, ProductID);
+                CartProductServices.RemoveCartProduct(cart, ProductID);
                 ShowCart_Load(sender, e);
             }
             else
