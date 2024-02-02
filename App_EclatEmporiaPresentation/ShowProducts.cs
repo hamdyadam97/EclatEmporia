@@ -61,7 +61,7 @@ namespace App_EclatEmporiaPresentation
             {
                 if (Product.StockQuantity > 0)
                 {
-                    var stream = new MemoryStream(Product.Image);
+                   // var stream = new MemoryStream(Product.Image);
                     var item = listView1.Items.Add(Product.ProductID.ToString());
                     listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
                     listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
