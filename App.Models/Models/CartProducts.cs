@@ -21,6 +21,7 @@ namespace App.Models.Models
 
         public int CartID { get; set; }
         public Cart Cart { get; set; }
+        public bool IsAddOrder { get; set; }
         public int Quantity { get; set; }
     }
 }

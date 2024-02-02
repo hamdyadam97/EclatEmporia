@@ -21,6 +21,7 @@ namespace App_EclatEmporiaPresentation
     {
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
+        OrderService orderService = new OrderService(new Repository<Order>(new StoreContext()));
 
         public ShowCart()
         {
@@ -34,30 +35,23 @@ namespace App_EclatEmporiaPresentation
 
         private void ShowCart_Load(object sender, EventArgs e)
         {
-            int cartId = 6;
-            var productsInCart = CartProductServices.GetProductsInCart(cartId)
-                .Select(p => new
-                {
-                   productid= p.ProductID,
-                    productName = p.ProductName,
-                    description = p.Description,
-                    price = p.Price,
-                    stockQuantity = p.StockQuantity
-                });
+            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID); ;
 
-            dataGridView1.DataSource = productsInCart.ToList();
+            var productsInCart = CartProductServices.GetProductsInCart(cart);
+
+            dataGridView1.DataSource = productsInCart;
+
         }
-
-
 
         private void delete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 var selectedRow = dataGridView1.SelectedRows[0];
+
+                var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
-                CartProductServices.RemoveCartProduct(ProductID);
-                MessageBox.Show("Delete button clicked");
+                CartProductServices.RemoveCartProduct(cart, ProductID);
                 ShowCart_Load(sender, e);
             }
             else
@@ -70,10 +64,50 @@ namespace App_EclatEmporiaPresentation
         private void button2_Click(object sender, EventArgs e)
         {
 
+            List<Product> productList = (List<Product>)dataGridView1.DataSource;
 
+            var productIds = productList.Select(product => product.ProductID).ToArray();
+            List<Product> productListPrice = (List<Product>)dataGridView1.DataSource;
 
-            MyOrders myOrders   = new MyOrders();
-            myOrders.Show();
+            decimal totalPrice = 0;
+
+            foreach (Product product in productListPrice)
+            {
+                // Ensure both Price and StockQuantity are not null
+                if (product.Price.HasValue && product.StockQuantity.HasValue)
+                {
+                    decimal productTotalPrice = product.Price.Value * product.StockQuantity.Value;
+                    totalPrice += productTotalPrice;
+                }
+            }
+
+            // Now totalPrice contains the total price after multiplying each product's price by its stock quantity
+
+            // Instantiate a new Order object
+            Order newOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                TotalAmount = totalPrice /* Calculate total amount */,
+                OrderStatus = "New", // Set appropriate status
+                ShippingAddress = "Assuiot" /* Get shipping address */,
+                PaymentMethod = "Cash"/* Get payment method */,
+                UserID = SessionData.Instance.user.UserID // Set the UserID
+            };
+            foreach (int productId in productIds)
+            {
+                newOrder.OrderProducts.Add(new ProductOrder
+                {
+                    ProductID = productId
+                });
+            }
+            orderService.AddOrder(newOrder);
+
+            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
+            foreach (int productId in productIds)
+            {
+                CartProductServices.UpdateCartProduct(productId, cart);
+            }
+
         }
     }
 }

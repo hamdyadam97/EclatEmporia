@@ -22,7 +22,10 @@ namespace App.Models.Models
 		public int UserID { get; set; }
 		public User User { get; set; }
 		public ICollection<ProductOrder> OrderProducts { get; set; }
+        public Order()
+        {
+            OrderProducts = new List<ProductOrder>();
+        }
 
-
-	}
+    }
 }
