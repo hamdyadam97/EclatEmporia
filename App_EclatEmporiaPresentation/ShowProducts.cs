@@ -1,9 +1,7 @@
 ﻿using App.Application.Services;
 using App.Context;
-using App.Context.Migrations;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace App_EclatEmporiaPresentation
 {
@@ -16,14 +14,11 @@ namespace App_EclatEmporiaPresentation
         public ShowProducts()
         {
             InitializeComponent(); ;
-            
 
-            
+
+
 
             var result = showProductService.GetCategories();
-
-            //var result = categoryService.GetAllCategories();
-
             foreach (var category in result)
             {
                 comboBox1.Items.Add(category.CategoryName);
@@ -32,52 +27,56 @@ namespace App_EclatEmporiaPresentation
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            try
             {
-                textBox2.Text = listView1.SelectedItems[0].SubItems[0].Text;
-                textBox3.Text = listView1.SelectedItems[0].SubItems[2].Text;
-                textBox4.Text = listView1.SelectedItems[0].SubItems[3].Text;
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    var selectedProduct = listView1.SelectedItems[0];
+                    if (selectedProduct is null) return;
+                    var productStringId = selectedProduct.Text;
+                    var productId = Convert.ToInt32(productStringId);
+                    var Product = productService.GetProductById(productId);
+                    if (Product is null)
+                        return;
+                    textBox2.Text = listView1.SelectedItems[0].SubItems[1].Text;
+                    textBox3.Text = listView1.SelectedItems[0].SubItems[3].Text;
+                    textBox4.Text = listView1.SelectedItems[0].SubItems[4].Text;
+                    MemoryStream stream = new MemoryStream(Product.Image ?? new List<byte>().ToArray());
+                    pictureBox1.Image = Image.FromStream(stream);
+                }
+            }
+            catch (Exception exp)
+            {
+
+                MessageBox.Show(exp.Message);
             }
         }
 
         private void ShowProducts_Load(object sender, EventArgs e)
         {
+            listView1.Items.Clear();
             var Products = productService.GetProducts();
+
             foreach (var Product in Products)
             {
-                listView1.Items.Add(Product.ProductID.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Price.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
+                if (Product.StockQuantity > 0)
+                {
+                    var stream = new MemoryStream(Product.Image);
+                    var item = listView1.Items.Add(Product.ProductID.ToString());
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Price.ToString());
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
+                }
             }
-            textBox5.Text = CartProductServices.GetCart(1).ToString();
-            //MessageBox.Show($"User ID: {user.UserID}, Username: {user.Username}");
+            textBox5.Text = CartProductServices.GetCart(SessionData.Instance.user.UserID).ToString();
         }
-
-        //private async void button1_Click(object sender, EventArgs e)
-        //{
-        //    var productList = await showProductService.GetProductByName(textBox1.Text).ToListAsync();
-
-        //    listView1.Items.Clear();
-
-        //    foreach (var Product in productList)
-        //    {
-        //        listView1.Items.Add(Product.ProductID.ToString());
-        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
-        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
-        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Price.ToString());
-        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
-        //        listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
-        //    }
-        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
             {
-                MessageBox.Show(SessionData.Instance.user.Email);
                 //Id
                 var selectedProduct = listView1.SelectedItems[0];
                 if (selectedProduct is null) return;
@@ -88,18 +87,17 @@ namespace App_EclatEmporiaPresentation
                 var QuantityProduct = listView1.SelectedItems[0].SubItems[4];
                 var QuantityProductstring = QuantityProduct.Text;
                 var QuantityProductInt = Convert.ToInt32(QuantityProductstring);
-                //var product = listView1.SelectedItems;
-                //var c = product[0].Tag as Product;
                 if (QuantityProductInt != 0)
                 {
                     if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
-                        productService.updateQuantity(productId);
-                        showProductService.updateQuantity(productId);
+                        productService.updateQuantityProduct(productId);
+                        showProductService.updateQuantity(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
+                        MessageBox.Show("The Product Added Successfully");
                     }
                     else
                     {
-                       if(CartProductServices.SearchCart(SessionData.Instance.user.UserID))
+                        if (CartProductServices.SearchCart(SessionData.Instance.user.UserID))
                         {
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
@@ -107,8 +105,9 @@ namespace App_EclatEmporiaPresentation
                                 CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
                             });
-                            productService.updateQuantity(productId);
-                            showProductService.updateQuantity(productId);
+                            productService.updateQuantityProduct(productId);
+                            showProductService.updateQuantity(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
+                            MessageBox.Show("The Product Added Successfully");
                         }
                         else
                         {
@@ -119,32 +118,20 @@ namespace App_EclatEmporiaPresentation
                                 CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
                             });
-                            productService.updateQuantity(productId);
-                            showProductService.updateQuantity(productId);
+                            productService.updateQuantityProduct(productId);
+                            showProductService.updateQuantity(productId , showProductService.usercartid(SessionData.Instance.user.UserID));
+                            MessageBox.Show("The Product Added Successfully");
                         }
-                        //CartProductServices.AddCartProduct(new CartProducts()
-                        //{
-                        //    ProductID = productId,
-                        //    CartID = showProductService.usercartid(4)
-
-                        //});
-                        //productService.updateQuantity(productId);
                     }
+                    ShowProducts_Load(null, null);
                 }
                 else
                 {
                     MessageBox.Show("Out of Stock");
 
                 }
-
-                //CartProductServices.AddCart(new CartProducts()
-                //{
-                //   ProductID = productId,
-                //   CartID = 1
-                //});
-
                 textBox5.Text = CartProductServices.GetCart(SessionData.Instance.user.UserID).ToString();
-                MessageBox.Show("The Product Added Successfully");
+
             }
             else
             {
@@ -154,10 +141,9 @@ namespace App_EclatEmporiaPresentation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //ShowCart showCart = new ShowCart();
-            //showCart.Show();
-            ShowCart ShowCart = new ShowCart();
-            ShowCart.Show();
+            ShowCart showCart = new ShowCart();
+            showCart.Show();
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -201,7 +187,7 @@ namespace App_EclatEmporiaPresentation
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

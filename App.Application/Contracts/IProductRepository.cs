@@ -14,7 +14,6 @@ namespace App.Application.Contracts
         //HaidyCode
         public IQueryable<Product> SearchByName(string name);
         public IQueryable<Product> GetAllProductsWithIncludes();
-        public void updateQuantity(int Productid);
-
+        public void updateQuantityProduct(int Productid);
     }
 }
