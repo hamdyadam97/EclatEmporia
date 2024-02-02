@@ -60,6 +60,8 @@ namespace App.Application.Services
             return _ICartRepositry.GetProductsInCart(CartID);
         }
 
+
+
         public void RemoveCartProduct(int CartID, int ProductID)
         {
             _ICartRepositry.RemoveCartProduct(CartID, ProductID);

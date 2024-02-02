@@ -1,6 +1,7 @@
-﻿using App.Context.Migrations;
+﻿
 using App.Models.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace App.Context
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-H2HR40I;Initial Catalog=NewProject;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-3HHLPJ7\\SQLEXPRESS;Initial Catalog=Eclat;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +32,7 @@ namespace App.Context
                 .HasOne(po => po.Product)
                 .WithMany(p => p.OrderProducts)
                 .HasForeignKey(po => po.ProductID);
+
 
             modelBuilder.Entity<ProductOrder>()
                 .HasOne(po => po.Order)
@@ -43,10 +47,24 @@ namespace App.Context
                 .HasForeignKey(p => p.CategoryID)
                 .OnDelete(DeleteBehavior.SetNull);
 
+			modelBuilder.Entity<ProductOrder>()
+				.HasOne(po => po.Order)
+				.WithMany(o => o.OrderProducts)
+				.HasForeignKey(po => po.OrderID)
+			.OnDelete(DeleteBehavior.Cascade);
+
+			
+			modelBuilder.Entity<Product>()
+				.HasOne(p => p.Category)
+				.WithMany(c => c.Products)
+				.HasForeignKey(p => p.CategoryID)
+				.OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Product>()
               .Property(p => p.Price)
               .HasColumnType("decimal(18,2)")
               .IsRequired();
+
 
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)
@@ -54,11 +72,14 @@ namespace App.Context
                 .HasForeignKey(o => o.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Category>()
-            //    .HasOne(o => o.User)
-            //    .WithMany(u => u.Categories)
-            //    .HasForeignKey(o => o.UserID)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            
+
+			modelBuilder.Entity<Order>()
+				.HasOne(o => o.User)
+				.WithMany(u => u.Orders)
+				.HasForeignKey(o => o.UserID)
+				.OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Cart>()
                 .HasKey(c => c.ShoppingCartID);

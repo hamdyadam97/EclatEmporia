@@ -54,7 +54,7 @@
             delete.TabIndex = 1;
             delete.Text = "Delete";
             delete.UseVisualStyleBackColor = true;
-            delete.Click += delete_Click;
+            delete.Click += delete_Click_1;
             // 
             // Confirm
             // 
@@ -65,7 +65,7 @@
             Confirm.TabIndex = 2;
             Confirm.Text = "Confirm";
             Confirm.UseVisualStyleBackColor = true;
-            Confirm.Click += button2_Click;
+            Confirm.Click += Confirm_Click;
             // 
             // ShowCart
             // 

@@ -68,21 +68,17 @@ namespace App.Infrastructure.Repositories
 
 
 
-        public void RemoveCartProduct(int productId)
+        public void RemoveCartProduct(int cartId, int productId)
         {
             int x = cartId;
             int y = productId;
             var cartProduct = context.CartProducts
-                .FirstOrDefault(cp => cp.ProductID == productId);
+                .FirstOrDefault(cp => cp.CartID == cartId && cp.ProductID == productId);
 
             if (cartProduct != null)
             {
                 context.CartProducts.Remove(cartProduct);
                 context.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Product not found in cart.");
             }
         }
 

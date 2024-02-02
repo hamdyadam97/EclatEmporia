@@ -32,17 +32,6 @@ namespace App_EclatEmporiaPresentation
         {
 
         }
-
-        private void ShowCart_Load(object sender, EventArgs e)
-        {
-            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID); ;
-
-            var productsInCart = CartProductServices.GetProductsInCart(cart);
-
-            dataGridView1.DataSource = productsInCart;
-
-        }
-
         private void delete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -60,10 +49,71 @@ namespace App_EclatEmporiaPresentation
             }
 
         }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
 
-        private void button2_Click(object sender, EventArgs e)
+        //    List<Product> productList = (List<Product>)dataGridView1.DataSource;
+
+        //    var productIds = productList.Select(product => product.ProductID).ToArray();
+        //    List<Product> productListPrice = (List<Product>)dataGridView1.DataSource;
+
+        //    decimal totalPrice = 0;
+
+        //    foreach (Product product in productListPrice)
+        //    {
+        //        // Ensure both Price and StockQuantity are not null
+        //        if (product.Price.HasValue && product.StockQuantity.HasValue)
+        //        {
+        //            decimal productTotalPrice = product.Price.Value * product.StockQuantity.Value;
+        //            totalPrice += productTotalPrice;
+        //        }
+        //    }
+
+        //    // Now totalPrice contains the total price after multiplying each product's price by its stock quantity
+
+        //    // Instantiate a new Order object
+        //    Order newOrder = new Order
+        //    {
+        //        OrderDate = DateTime.Now,
+        //        TotalAmount = totalPrice /* Calculate total amount */,
+        //        OrderStatus = "New", // Set appropriate status
+        //        ShippingAddress = "Assuiot" /* Get shipping address */,
+        //        PaymentMethod = "Cash"/* Get payment method */,
+        //        UserID = SessionData.Instance.user.UserID // Set the UserID
+        //    };
+        //    foreach (int productId in productIds)
+        //    {
+        //        newOrder.OrderProducts.Add(new ProductOrder
+        //        {
+        //            ProductID = productId
+        //        });
+        //    }
+        //    orderService.AddOrder(newOrder);
+
+        //    var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
+        //    foreach (int productId in productIds)
+        //    {
+        //        CartProductServices.UpdateCartProduct(productId, cart);
+        //    }
+
+
+
+        //    MyOrders myOrders = new MyOrders();
+        //    myOrders.Show();
+        //}
+
+        private void ShowCart_Load(object sender, EventArgs e)
         {
+            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID); ;
 
+            var productsInCart = CartProductServices.GetProductsInCart(cart);
+
+            dataGridView1.DataSource = productsInCart;
+
+        }
+
+        private void Confirm_Click(object sender, EventArgs e)
+        {
             List<Product> productList = (List<Product>)dataGridView1.DataSource;
 
             var productIds = productList.Select(product => product.ProductID).ToArray();
@@ -108,6 +158,29 @@ namespace App_EclatEmporiaPresentation
                 CartProductServices.UpdateCartProduct(productId, cart);
             }
 
+
+            var productsInCart = CartProductServices.GetProductsInCart(cart);
+
+            dataGridView1.DataSource = productsInCart;
+            MyOrders myOrders = new MyOrders();
+            myOrders.Show();
+        }
+
+        private void delete_Click_1(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridView1.SelectedRows[0];
+
+                var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
+                var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
+                CartProductServices.RemoveCartProduct(cart, ProductID);
+                ShowCart_Load(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("Please select a product to remove.");
+            }
         }
     }
 }
