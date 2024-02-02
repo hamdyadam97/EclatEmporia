@@ -66,6 +66,8 @@ namespace App.Infrastructure.Repositories
 
         // new func 
 
+
+
         public void RemoveCartProduct(int cartId, int productId)
         {
             int x = cartId;
@@ -79,6 +81,9 @@ namespace App.Infrastructure.Repositories
                 context.SaveChanges();
             }
         }
+
+
+
 
         //public List<CartProducts> GetProductsInCart(int cartId)
         //{
@@ -101,6 +106,8 @@ namespace App.Infrastructure.Repositories
                 })
                 .ToList();
         }
+
+
 
 
 

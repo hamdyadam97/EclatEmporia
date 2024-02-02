@@ -54,13 +54,15 @@ namespace App.Application.Services
         }
 
 
-        /// new func
-        public List<Product> GetProductsInCart(int CartID)
+        public List<Product> GetProductsInCart(int cartId)
         {
-            return _ICartRepositry.GetProductsInCart(CartID);
+            var products = _ICartRepositry.GetProductsInCart(cartId);
+            return products;
         }
- 
-         public void RemoveCartProduct(int CartID, int ProductID)
+
+
+
+        public void RemoveCartProduct(int CartID, int ProductID)
         {
             _ICartRepositry.RemoveCartProduct(CartID, ProductID);
         }

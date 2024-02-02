@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowCart));
             dataGridView1 = new DataGridView();
             delete = new Button();
             Confirm = new Button();
@@ -45,29 +46,33 @@
             // 
             // delete
             // 
-            delete.Location = new Point(62, 274);
+            delete.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            delete.Location = new Point(62, 277);
             delete.Name = "delete";
             delete.RightToLeft = RightToLeft.No;
-            delete.Size = new Size(75, 23);
+            delete.Size = new Size(93, 28);
             delete.TabIndex = 1;
             delete.Text = "Delete";
             delete.UseVisualStyleBackColor = true;
-            delete.Click += delete_Click;
+            delete.Click += delete_Click_1;
             // 
             // Confirm
             // 
+            Confirm.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Confirm.Location = new Point(62, 168);
             Confirm.Name = "Confirm";
-            Confirm.Size = new Size(75, 23);
+            Confirm.Size = new Size(93, 29);
             Confirm.TabIndex = 2;
             Confirm.Text = "Confirm";
             Confirm.UseVisualStyleBackColor = true;
-            Confirm.Click += button2_Click;
+            Confirm.Click += Confirm_Click;
             // 
             // ShowCart
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
             Controls.Add(Confirm);
             Controls.Add(delete);

@@ -13,8 +13,8 @@ namespace App_EclatEmporiaPresentation
 
         // Properties for user ID and role
         public User user { get; set; }
-      
 
+      //  public Cart CurrentCart { get; set; }
         // Private constructor to enforce singleton pattern
         private SessionData() { }
 
