@@ -2,6 +2,7 @@
 using App.Context;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,7 @@ namespace App_EclatEmporiaPresentation
     public partial class Register : Form
     {
         private readonly UserService _userService;
+        private  StoreContext context;
         public bool ValidatePasswordMatch(User user)
         {
             // Check if ConfirmPassword matches Password
@@ -57,7 +59,7 @@ namespace App_EclatEmporiaPresentation
                 };
                 
                 bool _MathPassword = ValidatePasswordMatch(newUser);
-                if (_MathPassword)
+                if (!_MathPassword)
                 {
                     MessageBox.Show("Password and Confirm must be match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -65,7 +67,9 @@ namespace App_EclatEmporiaPresentation
                 _userService.Add(newUser);
 
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                context = new StoreContext();
+                User user = context.Users.SingleOrDefault(u => u.Username == UserName.Text && u.Password == Password.Text);
+                SessionData.Instance.user = user;
 
                 if (_userService.DetermineUserRole(comboBox1.Text))
                 {                

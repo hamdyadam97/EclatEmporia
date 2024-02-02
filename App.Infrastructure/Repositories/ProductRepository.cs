@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.Infrastructure.Repositories
 {
-	public class ProductRepository : Repository<Product>, IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
 	{
         StoreContext context;
 
@@ -33,7 +33,7 @@ namespace App.Infrastructure.Repositories
         {
             return context.Products.Select(x => x);
         }
-        public void updateQuantity(int Productid)
+        public void updateQuantityProduct(int Productid)
         {
             var product = context.Products.FirstOrDefault(p => p.ProductID == Productid);
             product.StockQuantity -= 1;
@@ -54,5 +54,6 @@ namespace App.Infrastructure.Repositories
           .Include(p => p.Category);
         }
 
+       
     }
 }

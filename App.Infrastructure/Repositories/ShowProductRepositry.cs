@@ -65,9 +65,9 @@ namespace App.Infrastructure.Repositories
             return (int)context.SaveChanges();
         }
 
-        public void updateQuantity(int Productid)
+        public void updateQuantity(int Productid , int cartid)
         {
-            var product = context.CartProducts.FirstOrDefault(p => p.ProductID == Productid);
+            var product = context.CartProducts.FirstOrDefault(pc => pc.ProductID == Productid && pc.CartID == cartid);
             product.Quantity += 1;
 
             context.SaveChanges();

@@ -55,11 +55,11 @@ namespace App.Application.Services
             return _productRepository.GetAllProductsWithIncludes();
         }
 
-        public void updateQuantity(int Productid)
+        public void updateQuantityProduct(int Productid)
         {
-            _productRepository.updateQuantity(Productid);
+            _productRepository.updateQuantityProduct(Productid);
         }
-
+		
         
     }
 
