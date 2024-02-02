@@ -252,15 +252,6 @@ namespace App.Context.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("App.Models.Models.Category", b =>
-                {
-                    b.HasOne("App.Models.Models.User", "User")
-                        .WithMany("Categories")
-                        .HasForeignKey("UserID");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("App.Models.Models.Order", b =>
                 {
                     b.HasOne("App.Models.Models.User", "User")
