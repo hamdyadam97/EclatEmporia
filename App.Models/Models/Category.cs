@@ -18,8 +18,7 @@ namespace App.Models.Models
 
 		// One-to-Many: One category can many products
 		public virtual List<Product>? Products { get; set; }
-		public int? UserID { get; set; }
-        public User User { get; set; }
+	
 		
 	}
 }

@@ -9,14 +9,7 @@ namespace App.Application.Contracts
 {
 	public interface IRepository<T>
 	{
-		//List<T> GetAll();
-		//T GetById(TId id);
-
-		//T Add(T entity);
-		//T Update(T entity);
-		//void Delete(T entity);
-		//int Save();
-
+	
 		T GetById(int id);
 		IEnumerable<T> GetAll();
 		void Add(T entity);

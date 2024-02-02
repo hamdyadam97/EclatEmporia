@@ -77,12 +77,7 @@ namespace App.Context.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
                     b.HasKey("CategoryID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Categorys");
                 });
@@ -332,8 +327,6 @@ namespace App.Context.Migrations
                 {
                     b.Navigation("Cart")
                         .IsRequired();
-
-                    b.Navigation("Categories");
 
                     b.Navigation("Orders");
                 });
