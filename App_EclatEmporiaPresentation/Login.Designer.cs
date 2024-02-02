@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -40,26 +41,29 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Simplified Arabic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(53, 87);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("SimSun", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(53, 94);
             label1.Name = "label1";
-            label1.Size = new Size(98, 28);
+            label1.Size = new Size(106, 16);
             label1.TabIndex = 0;
             label1.Text = "User Name :";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Simplified Arabic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(60, 144);
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("SimSun", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(53, 156);
             label2.Name = "label2";
-            label2.Size = new Size(91, 28);
+            label2.Size = new Size(97, 16);
             label2.TabIndex = 1;
             label2.Text = "Password :";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
             label3.Font = new Font("Simplified Arabic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(139, 349);
             label3.Name = "label3";
@@ -107,6 +111,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
@@ -115,6 +122,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "Login";
             Text = "Login";
             ResumeLayout(false);

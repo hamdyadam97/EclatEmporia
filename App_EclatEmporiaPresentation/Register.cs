@@ -2,6 +2,7 @@
 using App.Context;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,7 @@ namespace App_EclatEmporiaPresentation
     public partial class Register : Form
     {
         private readonly UserService _userService;
+        private  StoreContext context;
         public bool ValidatePasswordMatch(User user)
         {
             // Check if ConfirmPassword matches Password
@@ -28,7 +30,7 @@ namespace App_EclatEmporiaPresentation
         }
         public Register()
         {
-      
+
             InitializeComponent();
             _userService = new UserService(new UserRepository(new StoreContext()));
         }
@@ -41,21 +43,21 @@ namespace App_EclatEmporiaPresentation
             try
             {
 
-               
+
                 var newUser = new User
                 {
                     Username = UserName.Text,
                     Email = Email.Text,
                     Password = Password.Text,
                     ConfirmPassword = ConfirmPassword.Text,
-                    Address = Address.Text,                 
+                    Address = Address.Text,
                     PhoneNumber = PhoneNumber.Text,
                     FirstName = textBox1.Text,
                     LastName = textBox2.Text,
                     Role = DetermineUserRole(comboBox1.Text),
                     RegistrationDate = DateTime.Now
                 };
-                
+
                 bool _MathPassword = ValidatePasswordMatch(newUser);
                 if (!_MathPassword)
                 {
@@ -65,29 +67,31 @@ namespace App_EclatEmporiaPresentation
                 _userService.Add(newUser);
 
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                context = new StoreContext();
+                User user = context.Users.SingleOrDefault(u => u.Username == UserName.Text && u.Password == Password.Text);
+                SessionData.Instance.user = user;
 
                 if (_userService.DetermineUserRole(comboBox1.Text))
-                {                
+                {
                     Add_Product AddProduct = new Add_Product();
 
                     AddProduct.user = newUser;
                     AddProduct.Show();
-                   
+
                 }
-                else 
-                {               
+                else
+                {
                     ShowProducts ShowProducts = new ShowProducts();
                     ShowProducts.user = newUser;
                     ShowProducts.Show();
-                    
+
                 }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               
+
             }
 
         }
@@ -96,6 +100,16 @@ namespace App_EclatEmporiaPresentation
         {
             Login login = new Login();
             login.Show();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Address_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

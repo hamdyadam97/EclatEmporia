@@ -29,13 +29,14 @@ public class UserService : IUserService
             Username = user.Username,
             Email = user.Email,
             Password = user.Password,
+            ConfirmPassword=user.ConfirmPassword,
             PhoneNumber = user.PhoneNumber,
             Role = parsedRole,
             Address = user.Address,
             FirstName = user.FirstName,
             LastName = user.LastName,
             RegistrationDate = DateTime.Now,
-            ConfirmPassword = user.ConfirmPassword,
+            
         };
 
         _userRepository.Add(newUser);

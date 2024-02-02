@@ -5,7 +5,7 @@
 namespace App.Context.Migrations
 {
     /// <inheritdoc />
-    public partial class changed : Migration
+    public partial class lfgdfgwqerbfjghj : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

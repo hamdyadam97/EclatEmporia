@@ -15,7 +15,7 @@ namespace App.Models.Models
 		public string Username { get; set; }
 		public string Email { get; set; }
 		public string Password { get; set; }
-        [Compare("Password")]
+      
         public string ConfirmPassword { get; set; }
         public string FirstName { get; set; }
 		public string LastName { get; set; }
@@ -28,8 +28,7 @@ namespace App.Models.Models
 
 		// One-to-One: One user can have one shopping cart
 		public Cart Cart { get; set; }
-        public List<Category> Categories { get; set; }
-
+     
         public bool Role { get; set; }
 	}
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Context.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240124010807_selectCategoreyName")]
-    partial class selectCategoreyName
+    [Migration("20240131231621_pppeadafsrf")]
+    partial class pppeadafsrf
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,28 @@ namespace App.Context.Migrations
                         .IsUnique();
 
                     b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("App.Models.Models.CartProducts", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAddOrder")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID", "CartID");
+
+                    b.HasIndex("CartID");
+
+                    b.ToTable("CartProducts");
                 });
 
             modelBuilder.Entity("App.Models.Models.Category", b =>
@@ -121,6 +143,9 @@ namespace App.Context.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<decimal?>("Price")
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
@@ -163,6 +188,10 @@ namespace App.Context.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConfirmPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -212,12 +241,30 @@ namespace App.Context.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("App.Models.Models.CartProducts", b =>
+                {
+                    b.HasOne("App.Models.Models.Cart", "Cart")
+                        .WithMany("Products")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Models.Product", "Product")
+                        .WithMany("Carts")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("App.Models.Models.Category", b =>
                 {
                     b.HasOne("App.Models.Models.User", "User")
                         .WithMany("Categories")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
 
                     b.Navigation("User");
                 });
@@ -262,6 +309,11 @@ namespace App.Context.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("App.Models.Models.Cart", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("App.Models.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -274,6 +326,8 @@ namespace App.Context.Migrations
 
             modelBuilder.Entity("App.Models.Models.Product", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("OrderProducts");
                 });
 

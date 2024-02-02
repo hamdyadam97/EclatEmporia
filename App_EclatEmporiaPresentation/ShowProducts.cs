@@ -61,7 +61,7 @@ namespace App_EclatEmporiaPresentation
             {
                 if (Product.StockQuantity > 0)
                 {
-                   // var stream = new MemoryStream(Product.Image);
+                    //var stream = new MemoryStream(Product.Image);
                     var item = listView1.Items.Add(Product.ProductID.ToString());
                     listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.ProductName);
                     listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.Description);
@@ -115,7 +115,8 @@ namespace App_EclatEmporiaPresentation
                             CartProductServices.AddCartProduct(new CartProducts()
                             {
                                 ProductID = productId,
-                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID),
+                                
 
                             });
                             productService.updateQuantityProduct(productId);
@@ -141,9 +142,10 @@ namespace App_EclatEmporiaPresentation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ShowCart showCart = new ShowCart();
-            showCart.Show();
-
+            //ShowCart showCart = new ShowCart();
+            //showCart.Show();
+            ShowCart myOrders = new ShowCart();
+            myOrders.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

@@ -22,15 +22,26 @@ namespace App.Application.Services
             _ICartRepositry.Save();
         }
 
+
+
         public void AddCartProduct(CartProducts cartProducts)
         {
             _ICartRepositry.AddCartProduct(cartProducts);
             _ICartRepositry.Save();
         }
-        
+        public void UpdateCartProduct(int productId,int cartID)
+        {
+            _ICartRepositry.UpdateCartProduct(productId, cartID);
+          
+        }
+
         public int GetCart(int userID)
         {
             return _ICartRepositry.GetCart(userID);
+        }
+        public int GetCartUserId(int userID)
+        {
+            return _ICartRepositry.GetCartUserId(userID);
         }
         public int Save()
         {
@@ -41,5 +52,20 @@ namespace App.Application.Services
         {
             return _ICartRepositry.SearchCart(userID);
         }
+
+
+        public List<Product> GetProductsInCart(int cartId)
+        {
+            var products = _ICartRepositry.GetProductsInCart(cartId);
+            return products;
+        }
+
+
+
+        public void RemoveCartProduct(int CartID, int ProductID)
+        {
+            _ICartRepositry.RemoveCartProduct(CartID, ProductID);
+        }
+
     }
 }
