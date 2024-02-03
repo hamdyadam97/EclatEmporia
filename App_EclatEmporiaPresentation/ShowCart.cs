@@ -57,7 +57,7 @@ namespace App_EclatEmporiaPresentation
                 var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
                 CartProductServices.RemoveCartProduct(cart, ProductID);
-              
+
             }
             else
             {
@@ -118,7 +118,7 @@ namespace App_EclatEmporiaPresentation
         //    myOrders.Show();
         //}
 
-       
+
 
         private void Confirm_Click(object sender, EventArgs e)
         {
@@ -140,39 +140,43 @@ namespace App_EclatEmporiaPresentation
                     totalPrice += productTotalPrice;
                 }
             }
-
-            // Now totalPrice contains the total price after multiplying each product's price by its stock quantity
-
-            // Instantiate a new Order object
-            Order newOrder = new Order
+            if (productListPrice.Count > 0)
             {
-                OrderDate = DateTime.Now,
-                TotalAmount = totalPrice /* Calculate total amount */,
-                OrderStatus = "processing", // Set appropriate status
-                ShippingAddress = "Assuiot" /* Get shipping address */,
-                PaymentMethod = "Cash"/* Get payment method */,
-                UserID = SessionData.Instance.user.UserID // Set the UserID
-            };
-            foreach (int productId in productIds)
-            {
-                newOrder.OrderProducts.Add(new ProductOrder
+                // Now totalPrice contains the total price after multiplying each product's price by its stock quantity
+
+                // Instantiate a new Order object
+
+                Order newOrder = new Order
                 {
-                    ProductID = productId
-                });
+                    OrderDate = DateTime.Now,
+                    TotalAmount = totalPrice /* Calculate total amount */,
+                    OrderStatus = "processing", // Set appropriate status
+                    ShippingAddress = "Assuiot" /* Get shipping address */,
+                    PaymentMethod = "Cash"/* Get payment method */,
+                    UserID = SessionData.Instance.user.UserID // Set the UserID
+                };
+                foreach (int productId in productIds)
+                {
+                    newOrder.OrderProducts.Add(new ProductOrder
+                    {
+                        ProductID = productId
+                    });
+                }
+                orderService.AddOrder(newOrder);
+
+                var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
+                foreach (int productId in productIds)
+                {
+                    CartProductServices.UpdateCartProduct(productId, cart);
+                }
+
+
+
+                var productsInCart = CartProductServices.GetProductsInCart(cart);
+
+                dataGridView1.DataSource = productsInCart;
             }
-            orderService.AddOrder(newOrder);
-
-            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
-            foreach (int productId in productIds)
-            {
-                CartProductServices.UpdateCartProduct(productId, cart);
-            }
-
-
-
-            var productsInCart = CartProductServices.GetProductsInCart(cart);
-
-            dataGridView1.DataSource = productsInCart;
+            
             MyOrders myOrders = new MyOrders();
             myOrders.Show();
         }
@@ -185,28 +189,35 @@ namespace App_EclatEmporiaPresentation
 
                 var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
-                
+
                 MessageBox.Show(Convert.ToString(cart));
                 MessageBox.Show(Convert.ToString(ProductID));
                 var product = context.CartProducts.FirstOrDefault(c => c.CartID == cart && c.ProductID == ProductID);
-                if (product.Quantity > 1) {
+                if (product.Quantity > 1)
+                {
                     product.Quantity = product.Quantity - 1;
                     context.SaveChanges();
 
                 }
                 else
                 {
-                     CartProductServices.RemoveCartProduct(cart, ProductID);
+                    CartProductServices.RemoveCartProduct(cart, ProductID);
                 }
-               
-                
-               
+
+
+
                 ShowCart_Load(sender, e);
             }
             else
             {
                 MessageBox.Show("Please select a product to remove.");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MyOrders myOrders = new MyOrders();
+            myOrders.Show();
         }
     }
 }
