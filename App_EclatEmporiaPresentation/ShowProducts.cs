@@ -89,14 +89,14 @@ namespace App_EclatEmporiaPresentation
                 var QuantityProductInt = Convert.ToInt32(QuantityProductstring);
                 if (QuantityProductInt > 0)
                 {
-                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)) 
+                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID))
                         && !CartProductServices.CartStats(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
                         productService.updateQuantityProduct(productId);
                         showProductService.updateQuantity(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
                         MessageBox.Show("The Product Added Successfully");
                     }
-                    else if(showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID))
+                    else if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID))
                         && CartProductServices.CartStats(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
                         CartProductServices.UpdateCart(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
@@ -125,11 +125,11 @@ namespace App_EclatEmporiaPresentation
                             {
                                 ProductID = productId,
                                 CartID = showProductService.usercartid(SessionData.Instance.user.UserID),
-                                
+
 
                             });
                             productService.updateQuantityProduct(productId);
-                            showProductService.updateQuantity(productId , showProductService.usercartid(SessionData.Instance.user.UserID));
+                            showProductService.updateQuantity(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
                             MessageBox.Show("The Product Added Successfully");
                         }
                     }
@@ -199,6 +199,12 @@ namespace App_EclatEmporiaPresentation
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MyOrders  myOrders = new MyOrders();
+            myOrders.Show();
         }
     }
 }

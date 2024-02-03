@@ -49,6 +49,8 @@
             uploadImg = new Button();
             openFileDialog1 = new OpenFileDialog();
             openFileDialog2 = new OpenFileDialog();
+            button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDownStockQuantity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProduct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -222,6 +224,26 @@
             // 
             openFileDialog2.FileName = "openFileDialog2";
             // 
+            // button1
+            // 
+            button1.Location = new Point(91, 389);
+            button1.Name = "button1";
+            button1.Size = new Size(110, 23);
+            button1.TabIndex = 18;
+            button1.Text = "Add_Category";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(273, 386);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 19;
+            button2.Text = "Trace Order";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Add_Product
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -229,6 +251,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(uploadImg);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
@@ -279,5 +303,7 @@
 		private Button uploadImg;
 		private OpenFileDialog openFileDialog1;
 		private OpenFileDialog openFileDialog2;
-	}
+        private Button button1;
+        private Button button2;
+    }
 }

@@ -53,6 +53,7 @@
             textBox5 = new TextBox();
             label7 = new Label();
             pictureBox1 = new PictureBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -108,7 +109,7 @@
             comboBox1.Location = new Point(988, 65);
             comboBox1.Margin = new Padding(4, 3, 4, 3);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(342, 28);
+            comboBox1.Size = new Size(342, 24);
             comboBox1.TabIndex = 1;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -140,7 +141,7 @@
             textBox1.Location = new Point(253, 65);
             textBox1.Margin = new Padding(4, 3, 4, 3);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(375, 30);
+            textBox1.Size = new Size(375, 26);
             textBox1.TabIndex = 5;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -149,7 +150,7 @@
             textBox2.Location = new Point(1202, 235);
             textBox2.Margin = new Padding(4, 3, 4, 3);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(170, 30);
+            textBox2.Size = new Size(170, 26);
             textBox2.TabIndex = 6;
             // 
             // textBox3
@@ -157,7 +158,7 @@
             textBox3.Location = new Point(1202, 326);
             textBox3.Margin = new Padding(4, 3, 4, 3);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(170, 30);
+            textBox3.Size = new Size(170, 26);
             textBox3.TabIndex = 7;
             // 
             // textBox4
@@ -165,7 +166,7 @@
             textBox4.Location = new Point(1202, 417);
             textBox4.Margin = new Padding(4, 3, 4, 3);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(170, 30);
+            textBox4.Size = new Size(170, 26);
             textBox4.TabIndex = 8;
             // 
             // label1
@@ -231,7 +232,7 @@
             // 
             textBox5.Location = new Point(1145, 127);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(125, 30);
+            textBox5.Size = new Size(125, 26);
             textBox5.TabIndex = 15;
             textBox5.TextChanged += textBox5_TextChanged;
             // 
@@ -253,14 +254,25 @@
             pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            button1.Location = new Point(773, 550);
+            button1.Name = "button1";
+            button1.Size = new Size(150, 23);
+            button1.TabIndex = 18;
+            button1.Text = "Show My Orders";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // ShowProducts
             // 
-            AutoScaleDimensions = new SizeF(11F, 20F);
+            AutoScaleDimensions = new SizeF(9F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1433, 612);
+            Controls.Add(button1);
             Controls.Add(pictureBox1);
             Controls.Add(label7);
             Controls.Add(textBox5);
@@ -314,5 +326,6 @@
         private TextBox textBox5;
         private Label label7;
         private PictureBox pictureBox1;
+        private Button button1;
     }
 }

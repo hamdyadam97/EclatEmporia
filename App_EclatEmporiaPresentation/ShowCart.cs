@@ -148,7 +148,7 @@ namespace App_EclatEmporiaPresentation
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalPrice /* Calculate total amount */,
-                OrderStatus = "New", // Set appropriate status
+                OrderStatus = "processing", // Set appropriate status
                 ShippingAddress = "Assuiot" /* Get shipping address */,
                 PaymentMethod = "Cash"/* Get payment method */,
                 UserID = SessionData.Instance.user.UserID // Set the UserID
