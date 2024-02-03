@@ -67,5 +67,14 @@ namespace App.Application.Services
             _ICartRepositry.RemoveCartProduct(CartID, ProductID);
         }
 
+        public bool CartStats(int productID, int cartId)
+        {
+            return _ICartRepositry.CartStats(productID, cartId);
+        }
+
+        public void UpdateCart(int productid, int cartId)
+        {
+            _ICartRepositry.UpdateCart(productid, cartId);
+        }
     }
 }

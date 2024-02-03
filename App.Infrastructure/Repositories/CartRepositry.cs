@@ -40,7 +40,7 @@ namespace App.Infrastructure.Repositories
         {
             var result = from x in context.CartProducts
                          join s in context.Carts on x.CartID equals s.ShoppingCartID
-                         where s.UserID == userID
+                         where s.UserID == userID && x.IsAddOrder == false
                          select x.ProductID;
             return result.Count();
         }
@@ -107,11 +107,17 @@ namespace App.Infrastructure.Repositories
                 .ToList();
         }
 
+        public bool CartStats(int productID, int cartId)
+        {
+            return context.CartProducts.Where(c => c.CartID == cartId && c.ProductID == productID).Select(c => c.IsAddOrder).FirstOrDefault();
+        }
 
-
-
-
-
-
+        public void UpdateCart(int productid, int cartId)
+        {
+           var product = context.CartProducts.FirstOrDefault(c => c.CartID == cartId && c.ProductID == productid);
+            product.IsAddOrder = false;
+            product.Quantity = 0;
+            context.SaveChanges();
+        }
     }
 }

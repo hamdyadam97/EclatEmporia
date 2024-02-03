@@ -17,6 +17,8 @@ namespace App.Application.Contracts
         public bool SearchCart(int userID);
         public int Save();
 
+        public bool CartStats(int productID, int cartId);
+        public void UpdateCart(int productid, int cartId);
 
         /// new func
         public void RemoveCartProduct(int CartID, int ProductID);
