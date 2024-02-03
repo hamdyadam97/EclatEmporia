@@ -29,10 +29,10 @@ namespace App.Application.Services
             _ICartRepositry.AddCartProduct(cartProducts);
             _ICartRepositry.Save();
         }
-        public void UpdateCartProduct(int productId,int cartID)
+        public void UpdateCartProduct(int productId, int cartID)
         {
             _ICartRepositry.UpdateCartProduct(productId, cartID);
-          
+
         }
 
         public int GetCart(int userID)
@@ -54,12 +54,11 @@ namespace App.Application.Services
         }
 
 
-        public List<Product> GetProductsInCart(int cartId)
+        /// new func
+        public List<Product> GetProductsInCart(int CartID)
         {
-            var products = _ICartRepositry.GetProductsInCart(cartId);
-            return products;
+            return _ICartRepositry.GetProductsInCart(CartID);
         }
-
 
 
         public void RemoveCartProduct(int CartID, int ProductID)

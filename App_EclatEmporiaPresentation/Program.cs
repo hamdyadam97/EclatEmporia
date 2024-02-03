@@ -20,9 +20,10 @@ namespace App_EclatEmporiaPresentation
 
         
 
-          Application.Run(new Register());
-       
 
+            Application.Run(new Login());
+
+		
 
 
 

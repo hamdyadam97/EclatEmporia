@@ -19,6 +19,7 @@ namespace App.Context
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-QP853AU\\ITI;Initial Catalog=Ecla04;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
+
         }
 
 

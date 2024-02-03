@@ -32,6 +32,19 @@ namespace App_EclatEmporiaPresentation
         {
 
         }
+
+
+        private void ShowCart_Load(object sender, EventArgs e)
+        {
+            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID); ;
+
+            var productsInCart = CartProductServices.GetProductsInCart(cart);
+
+            dataGridView1.DataSource = productsInCart;
+
+        }
+
+
         private void delete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -41,7 +54,7 @@ namespace App_EclatEmporiaPresentation
                 var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
                 CartProductServices.RemoveCartProduct(cart, ProductID);
-                ShowCart_Load(sender, e);
+              
             }
             else
             {
@@ -102,18 +115,11 @@ namespace App_EclatEmporiaPresentation
         //    myOrders.Show();
         //}
 
-        private void ShowCart_Load(object sender, EventArgs e)
-        {
-            var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID); ;
-
-            var productsInCart = CartProductServices.GetProductsInCart(cart);
-
-            dataGridView1.DataSource = productsInCart;
-
-        }
+       
 
         private void Confirm_Click(object sender, EventArgs e)
         {
+
             List<Product> productList = (List<Product>)dataGridView1.DataSource;
 
             var productIds = productList.Select(product => product.ProductID).ToArray();
@@ -157,6 +163,7 @@ namespace App_EclatEmporiaPresentation
             {
                 CartProductServices.UpdateCartProduct(productId, cart);
             }
+
 
 
             var productsInCart = CartProductServices.GetProductsInCart(cart);
