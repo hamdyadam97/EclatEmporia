@@ -41,9 +41,9 @@ namespace App.Application.Services
 		{
 			_productRepository.Update(product);
 		}
-        public IQueryable<Product> GetProducts()
+        public IQueryable<Product> GetProducts(int num, int product)
         {
-            return _productRepository.GetProducts();
+            return _productRepository.GetProducts().Skip(num * product).Take(product) ;
         }
         public IQueryable<Product> SearchProductsByName(string productName)
         {

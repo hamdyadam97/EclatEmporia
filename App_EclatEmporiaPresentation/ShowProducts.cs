@@ -55,7 +55,7 @@ namespace App_EclatEmporiaPresentation
         private void ShowProducts_Load(object sender, EventArgs e)
         {
             listView1.Items.Clear();
-            var Products = productService.GetProducts();
+            var Products = productService.GetProducts(0,5);
 
             foreach (var Product in Products)
             {
