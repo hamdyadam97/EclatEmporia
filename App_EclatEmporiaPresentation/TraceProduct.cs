@@ -39,7 +39,7 @@ namespace App_EclatEmporiaPresentation
         {
             var products = orderService.GetAllOrders();
             var productData1 = dbContext.Orders
-                .Where(order => order.OrderStatus != "Delivered")
+                .Where(order => order.OrderStatus != "delivered")
                 .Include(order => order.User)
                 .Include(order => order.OrderProducts)
                     .ThenInclude(productOrder => productOrder.Product)
@@ -77,10 +77,11 @@ namespace App_EclatEmporiaPresentation
         private void LoadOrderStatues()
         {
             List<OrderStatusItem> statusList = new List<OrderStatusItem>
+             
 {
-    new OrderStatusItem { COrderStatusName = "waiting", OrderStatusValue = "waiting" },
-    new OrderStatusItem { COrderStatusName = "Derived", OrderStatusValue = "derived" },
-    new OrderStatusItem { COrderStatusName = "go", OrderStatusValue = "go" }
+    new OrderStatusItem { COrderStatusName = "processing", OrderStatusValue = "processing" },
+    new OrderStatusItem { COrderStatusName = "shipped", OrderStatusValue = "shipped" },
+    new OrderStatusItem { COrderStatusName = "delivered", OrderStatusValue = "delivered" }
 };
 
             comboBox1.DataSource = statusList;

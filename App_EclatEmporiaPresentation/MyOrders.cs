@@ -38,7 +38,7 @@ namespace App_EclatEmporiaPresentation
 
             MessageBox.Show(SessionData.Instance.user.Email);
             var orders = dbContext.Orders
-                .Where(order => order.OrderStatus != "Delivered" && order.UserID == SessionData.Instance.user.UserID)
+                .Where(order => order.OrderStatus != "delivered" && order.UserID == SessionData.Instance.user.UserID)
                 .Select(order => new
                 {
                     OrderID = order.OrderID,
