@@ -3,6 +3,7 @@ using App.Context;
 using App.Context.Migrations;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
@@ -22,7 +23,7 @@ namespace App_EclatEmporiaPresentation
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
         OrderService orderService = new OrderService(new Repository<Order>(new StoreContext()));
-
+        StoreContext context = new StoreContext();
         public ShowCart()
         {
             InitializeComponent();
@@ -184,7 +185,22 @@ namespace App_EclatEmporiaPresentation
 
                 var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID);
                 var ProductID = Convert.ToInt32(selectedRow.Cells[0].Value);
-                CartProductServices.RemoveCartProduct(cart, ProductID);
+                
+                MessageBox.Show(Convert.ToString(cart));
+                MessageBox.Show(Convert.ToString(ProductID));
+                var product = context.CartProducts.FirstOrDefault(c => c.CartID == cart && c.ProductID == ProductID);
+                if (product.Quantity > 1) {
+                    product.Quantity = product.Quantity - 1;
+                    context.SaveChanges();
+
+                }
+                else
+                {
+                     CartProductServices.RemoveCartProduct(cart, ProductID);
+                }
+               
+                
+               
                 ShowCart_Load(sender, e);
             }
             else
