@@ -10,13 +10,11 @@ namespace App_EclatEmporiaPresentation
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         ProductService productService = new ProductService(new ProductRepository(new StoreContext()));
         CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
+        int page = 0;
         public User user { get; set; }
         public ShowProducts()
         {
             InitializeComponent(); ;
-
-
-
 
             var result = showProductService.GetCategories();
             foreach (var category in result)
@@ -55,7 +53,7 @@ namespace App_EclatEmporiaPresentation
         private void ShowProducts_Load(object sender, EventArgs e)
         {
             listView1.Items.Clear();
-            var Products = productService.GetProducts(0,5);
+            var Products = productService.GetProducts(page,5);
 
             foreach (var Product in Products)
             {
