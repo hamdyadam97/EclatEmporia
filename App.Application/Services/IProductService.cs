@@ -14,7 +14,7 @@ namespace App.Application.Services
 		void AddProduct(Product product);
 		void UpdateProduct(Product product);
 		void DeleteProduct(int id);
-        public IQueryable<Product> GetProducts();
+        public IQueryable<Product> GetProducts(int num,int product);
         //public IQueryable<Product> GetProductByName(string Name);
         //List<Product> GetAllPagination(int Num, int Prd);
 

@@ -32,6 +32,7 @@
             dataGridView1 = new DataGridView();
             delete = new Button();
             Confirm = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -67,6 +68,16 @@
             Confirm.UseVisualStyleBackColor = true;
             Confirm.Click += Confirm_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(48, 338);
+            button1.Name = "button1";
+            button1.Size = new Size(118, 23);
+            button1.TabIndex = 3;
+            button1.Text = "Show  My Orders";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // ShowCart
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -74,6 +85,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(Confirm);
             Controls.Add(delete);
             Controls.Add(dataGridView1);
@@ -89,5 +101,6 @@
         private DataGridView dataGridView1;
         private Button delete;
         private Button Confirm;
+        private Button button1;
     }
 }
