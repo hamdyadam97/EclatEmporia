@@ -36,7 +36,7 @@ public class UserService : IUserService
             FirstName = user.FirstName,
             LastName = user.LastName,
             RegistrationDate = DateTime.Now,
-            
+
         };
 
         _userRepository.Add(newUser);
