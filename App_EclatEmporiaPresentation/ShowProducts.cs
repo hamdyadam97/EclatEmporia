@@ -10,11 +10,17 @@ namespace App_EclatEmporiaPresentation
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         ProductService productService = new ProductService(new ProductRepository(new StoreContext()));
         CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
-        int page = 0;
+       
         public User user { get; set; }
+        public int page { get; set; }
         public ShowProducts()
         {
             InitializeComponent(); ;
+
+
+
+            page = 0;
+
 
             var result = showProductService.GetCategories();
             foreach (var category in result)
@@ -53,7 +59,9 @@ namespace App_EclatEmporiaPresentation
         private void ShowProducts_Load(object sender, EventArgs e)
         {
             listView1.Items.Clear();
+
             var Products = productService.GetProducts(page,5);
+
 
             foreach (var Product in Products)
             {
@@ -201,8 +209,28 @@ namespace App_EclatEmporiaPresentation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MyOrders  myOrders = new MyOrders();
+            MyOrders myOrders = new MyOrders();
             myOrders.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(page > 0)
+            {
+                page -= 1;
+                ShowProducts_Load(null, null);
+            }
+            else
+            {
+                MessageBox.Show("No Previous Pages");
+            }
+            
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            page += 1;
+            ShowProducts_Load(null, null);
         }
     }
 }
