@@ -87,10 +87,19 @@ namespace App_EclatEmporiaPresentation
                 var QuantityProduct = listView1.SelectedItems[0].SubItems[4];
                 var QuantityProductstring = QuantityProduct.Text;
                 var QuantityProductInt = Convert.ToInt32(QuantityProductstring);
-                if (QuantityProductInt != 0)
+                if (QuantityProductInt > 0)
                 {
-                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
+                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)) 
+                        && !CartProductServices.CartStats(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
+                        productService.updateQuantityProduct(productId);
+                        showProductService.updateQuantity(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
+                        MessageBox.Show("The Product Added Successfully");
+                    }
+                    else if(showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID))
+                        && CartProductServices.CartStats(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
+                    {
+                        CartProductServices.UpdateCart(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
                         productService.updateQuantityProduct(productId);
                         showProductService.updateQuantity(productId, showProductService.usercartid(SessionData.Instance.user.UserID));
                         MessageBox.Show("The Product Added Successfully");
