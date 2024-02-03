@@ -22,6 +22,7 @@ namespace App.Application.Contracts
 
         /// new func
 
+
         public void RemoveCartProduct(int CartID, int ProductID);
         
         List<Product> GetProductsInCart(int cartId);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyOrders));
             dataGridView1 = new DataGridView();
             button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -36,19 +37,20 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 34);
+            dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(749, 176);
+            dataGridView1.Size = new Size(776, 176);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // button1
             // 
+            button1.Font = new Font("Simplified Arabic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.Location = new Point(101, 344);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(132, 33);
             button1.TabIndex = 1;
-            button1.Text = "button1";
+            button1.Text = "Go To Products";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -56,9 +58,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
+            ForeColor = Color.Tomato;
             Name = "MyOrders";
             Text = "MyOrders";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

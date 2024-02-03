@@ -34,6 +34,7 @@ namespace App_EclatEmporiaPresentation
         }
 
 
+
         private void ShowCart_Load(object sender, EventArgs e)
         {
             var cart = CartProductServices.GetCartUserId(SessionData.Instance.user.UserID); ;
@@ -43,6 +44,7 @@ namespace App_EclatEmporiaPresentation
             dataGridView1.DataSource = productsInCart;
 
         }
+
 
 
         private void delete_Click(object sender, EventArgs e)
@@ -119,6 +121,7 @@ namespace App_EclatEmporiaPresentation
 
         private void Confirm_Click(object sender, EventArgs e)
         {
+
 
             List<Product> productList = (List<Product>)dataGridView1.DataSource;
 

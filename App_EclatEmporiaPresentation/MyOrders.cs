@@ -70,7 +70,8 @@ namespace App_EclatEmporiaPresentation
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            ShowProducts showProducts = new ShowProducts();
+            showProducts.Show();
         }
     }
 }
