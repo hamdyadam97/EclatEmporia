@@ -10,17 +10,8 @@ namespace App.Context.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Categorys_Users_UserID",
-                table: "Categorys");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Categorys_UserID",
-                table: "Categorys");
-
-            migrationBuilder.DropColumn(
-                name: "UserID",
-                table: "Categorys");
+           
+      
         }
 
         /// <inheritdoc />

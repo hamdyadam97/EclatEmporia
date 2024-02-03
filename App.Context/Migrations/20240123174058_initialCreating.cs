@@ -1,29 +1,28 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace App.Context.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreation : Migration
+    public partial class update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categorys",
-                columns: table => new
-                {
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categorys", x => x.CategoryID);
-                });
+               name: "Categorys",
+               columns: table => new
+               {
+                   CategoryID = table.Column<int>(type: "int", nullable: false)
+                       .Annotation("SqlServer:Identity", "1, 1"),
+                   CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                   Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+               },
+               constraints: table =>
+               {
+                   table.PrimaryKey("PK_Categorys", x => x.CategoryID);
+               });
 
             migrationBuilder.CreateTable(
                 name: "Users",
@@ -164,7 +163,7 @@ namespace App.Context.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Carts");
+               name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "ProductOrders");
