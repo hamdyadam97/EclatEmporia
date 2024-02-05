@@ -11,5 +11,10 @@ namespace App.Application.Services
     {
         public User AddUser(string userName, string email, string password, string confirmPassword, string phoneNumber, string selectedRole);
         public void Add (User user);
+        public IEnumerable<User> GetUsers();
+        void UpdateUser(User user);
+        public User GetUser(int id);
+
     }
+    
 }

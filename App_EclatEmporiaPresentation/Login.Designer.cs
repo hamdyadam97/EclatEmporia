@@ -36,6 +36,8 @@
             button2 = new Button();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
+            button3 = new Button();
+            button4 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -103,9 +105,32 @@
             // textBox2
             // 
             textBox2.Location = new Point(191, 149);
+            textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(261, 23);
+            textBox2.Size = new Size(261, 39);
             textBox2.TabIndex = 6;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.Transparent;
+            button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Location = new Point(401, 149);
+            button3.Name = "button3";
+            button3.Size = new Size(51, 36);
+            button3.TabIndex = 7;
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
+            // button4
+            // 
+            button4.BackgroundImage = (Image)resources.GetObject("button4.BackgroundImage");
+            button4.Location = new Point(401, 149);
+            button4.Name = "button4";
+            button4.Size = new Size(51, 42);
+            button4.TabIndex = 8;
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // Login
             // 
@@ -115,6 +140,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(button4);
+            Controls.Add(button3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(button2);
@@ -138,5 +165,7 @@
         private Button button2;
         private TextBox textBox1;
         private TextBox textBox2;
+        private Button button3;
+        private Button button4;
     }
 }

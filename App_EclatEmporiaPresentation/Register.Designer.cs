@@ -50,6 +50,10 @@
             label10 = new Label();
             button2 = new Button();
             comboBox1 = new ComboBox();
+            button3 = new Button();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
             SuspendLayout();
             // 
             // FirstName
@@ -138,8 +142,9 @@
             // ConfirmPassword
             // 
             ConfirmPassword.Location = new Point(596, 192);
+            ConfirmPassword.Multiline = true;
             ConfirmPassword.Name = "ConfirmPassword";
-            ConfirmPassword.Size = new Size(175, 23);
+            ConfirmPassword.Size = new Size(175, 38);
             ConfirmPassword.TabIndex = 16;
             // 
             // label5
@@ -156,8 +161,9 @@
             // Password
             // 
             Password.Location = new Point(186, 191);
+            Password.Multiline = true;
             Password.Name = "Password";
-            Password.Size = new Size(175, 23);
+            Password.Size = new Size(175, 33);
             Password.TabIndex = 14;
             // 
             // label6
@@ -251,6 +257,46 @@
             comboBox1.Size = new Size(175, 23);
             comboBox1.TabIndex = 21;
             // 
+            // button3
+            // 
+            button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
+            button3.Location = new Point(307, 190);
+            button3.Name = "button3";
+            button3.Size = new Size(54, 37);
+            button3.TabIndex = 22;
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button4
+            // 
+            button4.BackgroundImage = (Image)resources.GetObject("button4.BackgroundImage");
+            button4.Location = new Point(307, 191);
+            button4.Name = "button4";
+            button4.Size = new Size(54, 43);
+            button4.TabIndex = 23;
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // button5
+            // 
+            button5.BackgroundImage = (Image)resources.GetObject("button5.BackgroundImage");
+            button5.Location = new Point(715, 193);
+            button5.Name = "button5";
+            button5.Size = new Size(56, 37);
+            button5.TabIndex = 24;
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // button6
+            // 
+            button6.BackgroundImage = (Image)resources.GetObject("button6.BackgroundImage");
+            button6.Location = new Point(715, 191);
+            button6.Name = "button6";
+            button6.Size = new Size(56, 42);
+            button6.TabIndex = 25;
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -258,6 +304,10 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(button6);
+            Controls.Add(button5);
+            Controls.Add(button4);
+            Controls.Add(button3);
             Controls.Add(comboBox1);
             Controls.Add(button2);
             Controls.Add(label10);
@@ -308,5 +358,9 @@
         private Label label10;
         private Button button2;
         private ComboBox comboBox1;
+        private Button button3;
+        private Button button4;
+        private Button button5;
+        private Button button6;
     }
 }

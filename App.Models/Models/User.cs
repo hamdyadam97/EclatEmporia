@@ -30,5 +30,8 @@ namespace App.Models.Models
 		public Cart Cart { get; set; }
      
         public bool Role { get; set; }
+		public bool EnsureAdmin { get; set; }=false;
+		public bool IsOwner { get; set; } = false;
+
 	}
 }

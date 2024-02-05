@@ -18,7 +18,7 @@ namespace App_EclatEmporiaPresentation
         private readonly UserService _userService;
 
         private readonly StoreContext context;
-   
+
         public Login()
         {
             InitializeComponent();
@@ -43,16 +43,32 @@ namespace App_EclatEmporiaPresentation
             if (authenticatedUser != null)
             {
                 SessionData.Instance.user = authenticatedUser;
+                if (authenticatedUser.IsOwner)
+                {
+                    EnsureAdmin ensureAdmin = new EnsureAdmin();
+                    ensureAdmin.Show();
+                    return;
+                }
                 if (authenticatedUser.Role)
                 {
-                    AddCategoryProduct adminForm = new AddCategoryProduct();
-                    
-                    adminForm.Show();
+                    if (authenticatedUser.EnsureAdmin)
+                    {
+                        AddCategoryProduct adminForm = new AddCategoryProduct();
+
+                        adminForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("the super user must ensure you are admin");
+                    }
+
                 }
+
+
                 else
                 {
                     ShowProducts regularUserForm = new ShowProducts();
-                   
+
                     regularUserForm.Show();
                 }
 
@@ -68,6 +84,27 @@ namespace App_EclatEmporiaPresentation
         {
             Register registerForm = new Register();
             registerForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            if (textBox2.PasswordChar == '*')
+            {
+                button4.BringToFront();
+                textBox2.PasswordChar = '\0';
+            }
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            if (textBox2.PasswordChar == '\0')
+            {
+                button3.BringToFront();
+                textBox2.PasswordChar = '*';
+            }
         }
     }
 

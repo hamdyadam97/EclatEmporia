@@ -95,5 +95,16 @@ public class UserService : IUserService
         return newUser;
     }
 
+    public IEnumerable<User> GetUsers()
+    {
+        return _userRepository.GetAll();
+    }
 
+    public void UpdateUser(User user)
+    {
+        _userRepository.Update(user);
+    }
+    public User GetUser(int id) { 
+        return _userRepository.GetById(id);
+    }
 }

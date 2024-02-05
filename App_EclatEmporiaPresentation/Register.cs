@@ -22,7 +22,7 @@ namespace App_EclatEmporiaPresentation
     public partial class Register : Form
     {
         private readonly UserService _userService;
-        private  StoreContext context;
+        private StoreContext context;
         public bool ValidatePasswordMatch(User user)
         {
             // Check if ConfirmPassword matches Password
@@ -73,10 +73,14 @@ namespace App_EclatEmporiaPresentation
 
                 if (_userService.DetermineUserRole(comboBox1.Text))
                 {
-                    Add_Product AddProduct = new Add_Product();
+                    MessageBox.Show("wait ensure agreement of admin");
+                    return;
+                    EnsureAdmin ensureAdmin = new EnsureAdmin();
+                    ensureAdmin.Show();
 
-                    AddProduct.user = newUser;
-                    AddProduct.Show();
+                    //Add_Product AddProduct = new Add_Product();
+                    //AddProduct.user = newUser;
+                    //AddProduct.Show();
 
                 }
                 else
@@ -110,6 +114,46 @@ namespace App_EclatEmporiaPresentation
         private void Address_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (Password.PasswordChar == '\0')
+            {
+                button3.BringToFront();
+                Password.PasswordChar = '*';
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (Password.PasswordChar == '*')
+            {
+                button4.BringToFront();
+                Password.PasswordChar = '\0';
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("button6");
+            if (ConfirmPassword.PasswordChar == '\0')
+            {
+                MessageBox.Show("start");
+                button5.BringToFront();
+                ConfirmPassword.PasswordChar = '*';
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("button5");
+            if (ConfirmPassword.PasswordChar == '*')
+            {
+                MessageBox.Show("not start");
+                button6.BringToFront();
+                ConfirmPassword.PasswordChar = '\0';
+            }
         }
     }
 }
