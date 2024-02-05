@@ -4,6 +4,7 @@ using App.Context;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
 using Autofac;
+using Azure.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,9 @@ namespace App_EclatEmporiaPresentation
 
 		private readonly IProductService _productService;
 		private readonly ICategoryService _categoryService;
+		public User user { get; set; }
+       
+
 
 		private byte[] selectedImageBytes;
 		public Add_Product()
@@ -37,7 +41,9 @@ namespace App_EclatEmporiaPresentation
 		}
 
 		private void Add_Product_Load(object sender, EventArgs e)
+			
 		{
+			//MessageBox.Show($"User ID: {user.Email}, Username: {user.Username}");
 			LoadCategories();
 			GetProducts();
 			ResetForm();
@@ -114,6 +120,7 @@ namespace App_EclatEmporiaPresentation
 			}
 		private void comboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
 		{
+
 
 		}
 
@@ -294,9 +301,17 @@ namespace App_EclatEmporiaPresentation
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				selectedImageBytes = File.ReadAllBytes(openFileDialog.FileName);
-				// Optionally, you can display the selected image in a PictureBox:
-				pictureBox1.Image = Image.FromStream(new MemoryStream(selectedImageBytes));
-			}
+				//pictureBox1.Size = new Size(500, 500);
+
+				pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                // Optionally, you can display the selected image in a PictureBox:
+                pictureBox1.Image = Image.FromStream(new MemoryStream(selectedImageBytes));
+                pictureBox1.BorderStyle = BorderStyle.FixedSingle;
+
+                // To adjust the background color:
+                pictureBox1.BackColor = Color.White;
+            }
 		}
 	}
 }

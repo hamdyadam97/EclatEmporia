@@ -11,9 +11,10 @@ namespace App.Application.Contracts
 	{
 		//public IQueryable<Product> GetProductByName(string name);
         public IQueryable<Product> GetProducts();
+        //HaidyCode
+        public IQueryable<Product> SearchByName(string name);
+        public IQueryable<Product> GetAllProductsWithIncludes();
+        public void updateQuantity(int Productid);
 
-		//HaidyCode
-		public IQueryable<Product> SearchByName(string name);
-		IQueryable<Product> GetAllProductsWithIncludes();
-	}
+    }
 }

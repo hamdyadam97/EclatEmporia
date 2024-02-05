@@ -24,6 +24,10 @@ namespace App.Models.Models
 		public int? CategoryID { get; set; }
 		public virtual Category Category { get; set; }
 
+		//public int CartID { get; set; }
+		//public Cart Cart { get; set; }
+		public ICollection<CartProducts> Carts { get; set; }
+
 		public ICollection<ProductOrder>? OrderProducts { get; set; }
 	}
 }

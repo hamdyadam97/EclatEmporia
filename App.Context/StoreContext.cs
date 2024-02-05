@@ -11,8 +11,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace App.Context
 {
-	public class StoreContext :DbContext
-	{
+    public class StoreContext : DbContext
+    {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -22,15 +22,15 @@ namespace App.Context
 		}
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
+        {
 
-			modelBuilder.Entity<ProductOrder>()
-		   .HasKey(po => new { po.ProductID, po.OrderID });
+            modelBuilder.Entity<ProductOrder>()
+           .HasKey(po => new { po.ProductID, po.OrderID });
 
-			modelBuilder.Entity<ProductOrder>()
-				.HasOne(po => po.Product)
-				.WithMany(p => p.OrderProducts)
-				.HasForeignKey(po => po.ProductID);
+            modelBuilder.Entity<ProductOrder>()
+                .HasOne(po => po.Product)
+                .WithMany(p => p.OrderProducts)
+                .HasForeignKey(po => po.ProductID);
 
 			modelBuilder.Entity<ProductOrder>()
 				.HasOne(po => po.Order)
@@ -45,33 +45,50 @@ namespace App.Context
 				.HasForeignKey(p => p.CategoryID)
 				.OnDelete(DeleteBehavior.SetNull);
 
-			modelBuilder.Entity<Product>()
-			  .Property(p => p.Price)
-			  .HasColumnType("decimal(18,2)")
-			  .IsRequired();
+            modelBuilder.Entity<Product>()
+              .Property(p => p.Price)
+              .HasColumnType("decimal(18,2)")
+              .IsRequired();
 
-			modelBuilder.Entity<Order>()
-				.HasOne(o => o.User)
-				.WithMany(u => u.Orders)
-				.HasForeignKey(o => o.UserID)
-				.OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Orders)
+                .HasForeignKey(o => o.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Cart>()
-				.HasKey(c => c.ShoppingCartID);
+                .HasKey(c => c.ShoppingCartID);
 
-			modelBuilder.Entity<Cart>()
-				.HasOne(c => c.User)
-				.WithOne(u => u.Cart)
-				.HasForeignKey<Cart>(c => c.UserID);
+            modelBuilder.Entity<Cart>()
+                .HasOne(c => c.User)
+                .WithOne(u => u.Cart)
+                .HasForeignKey<Cart>(c => c.UserID);
+
+            modelBuilder.Entity<CartProducts>()
+           .HasKey(po => new { po.ProductID, po.CartID });
+
+            modelBuilder.Entity<CartProducts>()
+                .HasOne(po => po.Product)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(po => po.ProductID);
+
+            modelBuilder.Entity<CartProducts>()
+                .HasOne(po => po.Cart)
+                .WithMany(o => o.Products)
+                .HasForeignKey(po => po.CartID)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
-			base.OnModelCreating(modelBuilder);
-		}
-		public virtual DbSet<Product> Products { get; set; }
-		public virtual DbSet<User> Users { get; set; }
-		public virtual DbSet<Order> Orders { get; set; }
-		public virtual DbSet<Category> Categorys { get; set; }
-		public virtual DbSet<Cart> Carts { get; set; }
-		public DbSet<ProductOrder> ProductOrders { get; set; }
-	}
+
+
+            base.OnModelCreating(modelBuilder);
+        }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Category> Categorys { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public DbSet<ProductOrder> ProductOrders { get; set; }
+        public DbSet<CartProducts> CartProducts { get; set; }
+    }
 }

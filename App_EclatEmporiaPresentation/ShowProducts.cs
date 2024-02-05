@@ -1,5 +1,6 @@
 ﻿using App.Application.Services;
 using App.Context;
+using App.Context.Migrations;
 using App.Infrastructure.Repositories;
 using App.Models.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +11,17 @@ namespace App_EclatEmporiaPresentation
     {
         ShowProductService showProductService = new ShowProductService(new ShowProductRepositry(new StoreContext()));
         ProductService productService = new ProductService(new ProductRepository(new StoreContext()));
-        //CategoryService categoryService = new CategoryService(new CategoryRepository(new StoreContext()));
+        CartProductServices CartProductServices = new CartProductServices(new CartRepositry(new StoreContext()));
+        public User user { get; set; }
         public ShowProducts()
         {
-            InitializeComponent();
+            InitializeComponent(); ;
+            
 
+            
 
             var result = showProductService.GetCategories();
+
             //var result = categoryService.GetAllCategories();
 
             foreach (var category in result)
@@ -47,6 +52,8 @@ namespace App_EclatEmporiaPresentation
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.StockQuantity.ToString());
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(Product.DateAdded.ToString());
             }
+            textBox5.Text = CartProductServices.GetCart(1).ToString();
+            //MessageBox.Show($"User ID: {user.UserID}, Username: {user.Username}");
         }
 
         //private async void button1_Click(object sender, EventArgs e)
@@ -70,30 +77,73 @@ namespace App_EclatEmporiaPresentation
         {
             if (listView1.SelectedItems.Count > 0)
             {
+                MessageBox.Show(SessionData.Instance.user.Email);
+                //Id
                 var selectedProduct = listView1.SelectedItems[0];
                 if (selectedProduct is null) return;
                 var productStringId = selectedProduct.Text;
                 var productId = Convert.ToInt32(productStringId);
 
-                showProductService.AddOrder(new Order()
+                //Quantity
+                var QuantityProduct = listView1.SelectedItems[0].SubItems[4];
+                var QuantityProductstring = QuantityProduct.Text;
+                var QuantityProductInt = Convert.ToInt32(QuantityProductstring);
+                //var product = listView1.SelectedItems;
+                //var c = product[0].Tag as Product;
+                if (QuantityProductInt != 0)
                 {
-                    TotalAmount = 1,
-                    OrderDate = DateTime.Now,
-                    UserID = 1,
-                    OrderStatus = "Waiting",
-                    ShippingAddress = "Hurgada",
-                    PaymentMethod = "cash",
-                    OrderProducts = new List<ProductOrder>()
+                    if (showProductService.check(productId, showProductService.usercartid(SessionData.Instance.user.UserID)))
                     {
-                        new ProductOrder()
-                        {
-                            OrderID = 1,
-                            ProductID = productId
-                        }
+                        productService.updateQuantity(productId);
+                        showProductService.updateQuantity(productId);
                     }
-                });
+                    else
+                    {
+                       if(CartProductServices.SearchCart(SessionData.Instance.user.UserID))
+                        {
+                            CartProductServices.AddCartProduct(new CartProducts()
+                            {
+                                ProductID = productId,
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
+                            });
+                            productService.updateQuantity(productId);
+                            showProductService.updateQuantity(productId);
+                        }
+                        else
+                        {
+                            CartProductServices.AddCart(new Cart() { UserID = SessionData.Instance.user.UserID });
+                            CartProductServices.AddCartProduct(new CartProducts()
+                            {
+                                ProductID = productId,
+                                CartID = showProductService.usercartid(SessionData.Instance.user.UserID)
 
+                            });
+                            productService.updateQuantity(productId);
+                            showProductService.updateQuantity(productId);
+                        }
+                        //CartProductServices.AddCartProduct(new CartProducts()
+                        //{
+                        //    ProductID = productId,
+                        //    CartID = showProductService.usercartid(4)
+
+                        //});
+                        //productService.updateQuantity(productId);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Out of Stock");
+
+                }
+
+                //CartProductServices.AddCart(new CartProducts()
+                //{
+                //   ProductID = productId,
+                //   CartID = 1
+                //});
+
+                textBox5.Text = CartProductServices.GetCart(SessionData.Instance.user.UserID).ToString();
                 MessageBox.Show("The Product Added Successfully");
             }
             else
@@ -104,8 +154,10 @@ namespace App_EclatEmporiaPresentation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ShowCart showCart = new ShowCart();
-            showCart.Show();
+            //ShowCart showCart = new ShowCart();
+            //showCart.Show();
+            MyOrders myOrders = new MyOrders();
+            myOrders.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,6 +194,14 @@ namespace App_EclatEmporiaPresentation
             }
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

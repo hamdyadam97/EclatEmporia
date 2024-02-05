@@ -16,11 +16,21 @@ namespace App.Application.Services
             _IShowRepositry = IshowRepositry;
         }
 
-        public void AddOrder(Order order)
+        public bool check(int productid, int categoryid)
         {
-            _IShowRepositry.AddOrder(order);
-            _IShowRepositry.Save();
+            return _IShowRepositry.check(productid, categoryid);
         }
+
+        //public void AddCart(CartProducts cartProducts)
+        //{
+        //    _IShowRepositry.AddCart(cartProducts);
+        //    _IShowRepositry.Save();
+        //}
+
+        //public int GetCart(int userID)
+        //{
+        //    return _IShowRepositry.GetCart(userID);
+        //}
 
         public IQueryable<Category> GetCategories()
         {
@@ -45,6 +55,16 @@ namespace App.Application.Services
         public int Save()
         {
             return _IShowRepositry.Save();
+        }
+
+        public void updateQuantity(int Productid)
+        {
+            _IShowRepositry.updateQuantity(Productid);
+        }
+
+        public int usercartid(int userid)
+        {
+            return _IShowRepositry.usercartid(userid);
         }
     }
 }
